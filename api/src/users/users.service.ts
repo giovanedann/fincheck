@@ -10,6 +10,7 @@ export class UsersService {
   async create({ email, name, password }: CreateUserDto) {
     const isEmailAlreadyTaken = await this.prismaService.user.findUnique({
       where: { email },
+      select: { id: true },
     });
 
     if (isEmailAlreadyTaken) {
