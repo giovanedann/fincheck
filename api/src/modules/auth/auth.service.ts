@@ -8,8 +8,7 @@ import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
 
 import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
-import { SignUpDto } from './dto/signup.dto';
-import { SignInDto } from './dto/signin.dto';
+import { SignInDto, SignUpDto } from './dto';
 
 @Injectable()
 export class AuthService {
