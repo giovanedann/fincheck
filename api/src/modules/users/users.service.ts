@@ -1,14 +1,14 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { hash } from 'bcryptjs';
-import { PrismaService } from 'src/shared/database/prisma.service';
+import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async create({ email, name, password }: CreateUserDto) {
-    const isEmailAlreadyTaken = await this.prismaService.user.findUnique({
+    const isEmailAlreadyTaken = await this.usersRepository.findUnique({
       where: { email },
       select: { id: true },
     });
@@ -19,7 +19,7 @@ export class UsersService {
 
     const hashedPassword = await hash(password, 12);
 
-    const user = await this.prismaService.user.create({
+    const user = await this.usersRepository.create({
       data: {
         name,
         email,
