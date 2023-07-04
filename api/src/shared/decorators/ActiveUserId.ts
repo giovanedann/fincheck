@@ -13,6 +13,6 @@ export const ActiveUserId = createParamDecorator<never>(
       throw new UnauthorizedException();
     }
 
-    return { userId };
+    return userId;
   },
 );
