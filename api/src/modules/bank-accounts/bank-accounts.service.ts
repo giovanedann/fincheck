@@ -15,8 +15,10 @@ export class BankAccountsService {
     });
   }
 
-  findAll() {
-    return `This action returns all bankAccounts`;
+  findAllByUserId(userId: string) {
+    return this.bankAccountRepository.findMany({
+      where: { userId },
+    });
   }
 
   findOne(id: number) {
