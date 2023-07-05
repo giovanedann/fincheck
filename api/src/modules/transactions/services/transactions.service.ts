@@ -45,7 +45,10 @@ export class TransactionsService {
       transactionId,
     });
 
-    return `This action updates a #${transactionId} transaction`;
+    return this.transactionsRepository.update({
+      where: { id: transactionId },
+      data: { bankAccountId, categoryId, date, name, type, value },
+    });
   }
 
   remove(id: string) {
@@ -63,10 +66,12 @@ export class TransactionsService {
     bankAccountId: string;
     transactionId?: string;
   }) {
-    await this.validateTransactionOwnershipService.validate(
-      userId,
-      transactionId,
-    );
+    if (transactionId) {
+      await this.validateTransactionOwnershipService.validate(
+        userId,
+        transactionId,
+      );
+    }
 
     await Promise.all([
       this.validateBankAccountOwnershipService.validate(userId, bankAccountId),
