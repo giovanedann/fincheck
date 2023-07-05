@@ -26,8 +26,22 @@ export class TransactionsService {
     });
   }
 
-  findAllByUserId(userId: string) {
-    return this.transactionsRepository.findMany({ where: { userId } });
+  findAllByUserId(userId: string, filters: { month: number; year: number }) {
+    const [queryYear, queryMonth, queryNextMonth] = [
+      filters.year,
+      filters.month,
+      filters.month + 1,
+    ];
+
+    return this.transactionsRepository.findMany({
+      where: {
+        userId,
+        date: {
+          gte: new Date(queryYear, queryMonth),
+          lt: new Date(queryYear, queryNextMonth),
+        },
+      },
+    });
   }
 
   async update(
