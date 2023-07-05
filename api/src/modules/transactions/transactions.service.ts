@@ -40,11 +40,9 @@ export class TransactionsService {
     categoryId: string;
     bankAccountId: string;
   }) {
-    await this.validateBankAccountOwnershipService.validate(
-      userId,
-      bankAccountId,
-    );
-
-    await this.validateCategoryOwnershipService.validate(userId, categoryId);
+    await Promise.all([
+      this.validateBankAccountOwnershipService.validate(userId, bankAccountId),
+      this.validateCategoryOwnershipService.validate(userId, categoryId),
+    ]);
   }
 }
