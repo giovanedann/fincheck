@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
-import { PrismaService } from 'src/shared/database/prisma.service';
+import { ValidateCategoryOwnershipService } from './services/validate-category-ownership.service';
+import { CategoriesService } from './services/categories.service';
 
 @Module({
   controllers: [CategoriesController],
-  providers: [CategoriesService, PrismaService],
+  providers: [CategoriesService, ValidateCategoryOwnershipService],
+  exports: [ValidateCategoryOwnershipService],
 })
 export class CategoriesModule {}
