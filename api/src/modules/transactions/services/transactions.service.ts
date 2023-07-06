@@ -26,7 +26,10 @@ export class TransactionsService {
     });
   }
 
-  findAllByUserId(userId: string, filters: { month: number; year: number }) {
+  findAllByUserId(
+    userId: string,
+    filters: { month: number; year: number; bankAccountId?: string },
+  ) {
     const [queryYear, queryMonth, queryNextMonth] = [
       filters.year,
       filters.month,
@@ -36,6 +39,7 @@ export class TransactionsService {
     return this.transactionsRepository.findMany({
       where: {
         userId,
+        bankAccountId: filters.bankAccountId,
         date: {
           gte: new Date(Date.UTC(queryYear, queryMonth)),
           lt: new Date(Date.UTC(queryYear, queryNextMonth)),
