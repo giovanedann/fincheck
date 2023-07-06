@@ -5,6 +5,7 @@ import { CreateTransactionDto } from '../dto/create-transaction.dto';
 import { UpdateTransactionDto } from '../dto/update-transaction.dto';
 import { ValidateCategoryOwnershipService } from 'src/modules/categories/services/validate-category-ownership.service';
 import { ValidateTransactionOwnershipService } from './validate-transaction-ownership.service';
+import { TransactionType } from '../entities/Transaction';
 
 @Injectable()
 export class TransactionsService {
@@ -28,7 +29,12 @@ export class TransactionsService {
 
   findAllByUserId(
     userId: string,
-    filters: { month: number; year: number; bankAccountId?: string },
+    filters: {
+      month: number;
+      year: number;
+      bankAccountId?: string;
+      transactionType?: TransactionType;
+    },
   ) {
     const [queryYear, queryMonth, queryNextMonth] = [
       filters.year,
@@ -44,6 +50,7 @@ export class TransactionsService {
           gte: new Date(Date.UTC(queryYear, queryMonth)),
           lt: new Date(Date.UTC(queryYear, queryNextMonth)),
         },
+        type: filters.transactionType,
       },
     });
   }
