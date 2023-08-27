@@ -23,7 +23,7 @@ export function AuthLayout() {
 
         <div className="w-full max-w-[656px] bottom-8 lg:bottom-4 bg-white p-10 lg:p-4 absolute rounded-b-[2rem]">
           <Logo className="text-teal-900 h-4 xl:h-8" />
-          <p className="text-gray-700 font-medium text-md xl:text-xl text-start mt-6">
+          <p className="text-gray-700 font-medium text-md xl:text-xl text-start mt-4">
             Manage your bank transactions with ease, for free!
           </p>
         </div>

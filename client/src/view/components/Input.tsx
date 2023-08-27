@@ -13,7 +13,7 @@ export function Input({ placeholder, name, id, ...props }: InputProps) {
         {...props}
         name={name}
         id={inputId}
-        className="bg-white w-full rounded-lg border pt-4 placeholder-shown:pt-0 border-gray-500 focus:border-gray-800 px-3 h-[52px] text-gray-800 peer transition-all ease-in-out duration-500 outline-none"
+        className="bg-white w-full rounded-lg border pt-4 placeholder-shown:pt-0 border-gray-500 focus:border-gray-800 px-3 h-[52px] text-gray-800 peer transition-all ease-in-out duration-300 outline-none"
         placeholder=" "
       />
 
