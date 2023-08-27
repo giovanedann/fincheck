@@ -4,7 +4,7 @@ import { Button, Input } from "../components";
 export function Login() {
   return (
     <>
-      <header className="flex flex-col items-center gap-4">
+      <header className="flex flex-col items-center gap-4 text-center">
         <h1 className="text-2xl font-bold text-gray-900 tracking-[-1px]">
           Sign in
         </h1>
