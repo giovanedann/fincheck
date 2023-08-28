@@ -3,7 +3,7 @@ import { Button, Input } from "../../components";
 import { useLogin } from "./hooks/useLogin";
 
 export function Login() {
-  const { handleSubmit, register } = useLogin()
+  const { handleSubmit, register, errors } = useLogin()
 
   return (
     <>
@@ -24,7 +24,9 @@ export function Login() {
 
       <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
         <Input type="email" placeholder="E-mail" {...register('email')} />
+        {errors.email && <span>{errors.email.message}</span>}
         <Input type="password" placeholder="Password" {...register('password')} />
+        {errors.password && <span>{errors.password.message}</span>}
 
         <Button type="submit" className="mt-2">
           Sign in

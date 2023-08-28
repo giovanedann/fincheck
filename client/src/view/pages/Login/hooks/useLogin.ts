@@ -1,23 +1,26 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-type LoginFormData = {
-  email: string
-  password: string
-}
+import { zodResolver } from '@hookform/resolvers/zod'
 
 const schema = z.object({
-  email: z.string().nonempty().email(),
-  password: z.string().nonempty().min(8)
+  email: z.string().nonempty('E-mail is required').email('E-mail must be a valid e-mail format'),
+  password: z.string().nonempty('Password is required').min(8, 'Password must have at least 8 characters')
 })
 
-export function useLogin() {
-  const { handleSubmit: hookFormHandleSubmit, register } = useForm<LoginFormData>()
+type LoginFormData = z.infer<typeof schema>
 
-  const handleSubmit = hookFormHandleSubmit((data) => {
-    const isDataValid = schema.safeParse(data)
-    console.log({ isDataValid })
+export function useLogin() {
+  const {
+    handleSubmit: hookFormHandleSubmit,
+    formState: { errors },
+    register
+  } = useForm<LoginFormData>({
+    resolver: zodResolver(schema)
   })
 
-  return { handleSubmit, register }
+  const handleSubmit = hookFormHandleSubmit((data) => {
+    console.log('calling api with:', { data })
+  })
+
+  return { handleSubmit, register, errors }
 }
