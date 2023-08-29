@@ -6,6 +6,7 @@ import { localStorageKeys } from "../config/localStorageKeys";
 type AuthContextValues = {
   signedIn: boolean;
   signIn: (accessToken: string) => void;
+  signOut: () => void;
 }
 
 type AuthProviderProps = {
@@ -27,12 +28,19 @@ export function AuthProvider({ children }: AuthProviderProps) {
     setSignedIn(true)
   }, [])
 
+  const signOut = useCallback(() => {
+    LocalStorage.remove(localStorageKeys.ACCESS_TOKEN)
+    setSignedIn(false)
+  }, [])
+
   const contextValues: AuthContextValues = useMemo(() => ({
     signedIn,
-    signIn
+    signIn,
+    signOut
   }), [
     signedIn,
     signIn,
+    signOut
   ])
 
   return (
