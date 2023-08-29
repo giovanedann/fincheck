@@ -3,7 +3,7 @@ import { Button, Input } from "../../components";
 import { useLogin } from "./hooks/useLogin";
 
 export function Login() {
-  const { handleSubmit, register, errors } = useLogin()
+  const { handleSubmit, register, errors, isLoading } = useLogin()
 
   return (
     <>
@@ -37,7 +37,7 @@ export function Login() {
           {...register('password')}
         />
 
-        <Button type="submit" className="mt-2">
+        <Button type="submit" className="mt-2" isLoading={isLoading}>
           Sign in
         </Button>
       </form>
