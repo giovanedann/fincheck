@@ -1,6 +1,11 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+
+import AuthService from "../../../../app/infra/services/AuthService";
+import { SignUpParams } from "../../../../app/domain/services/AuthService";
+import { toast } from "react-hot-toast";
 
 const schema = z.object({
   name: z.string().nonempty('Name is required'),
@@ -19,9 +24,26 @@ export function useRegister() {
     resolver: zodResolver(schema)
   })
 
-  const handleSubmit = hookFormHandleSubmit((data) => {
-    console.log('calling api with:', { data })
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: async (data: SignUpParams) => {
+      return AuthService.signUp(data)
+    }
   })
 
-  return { handleSubmit, register, errors }
+  const handleSubmit = hookFormHandleSubmit(async (data) => {
+    try {
+      const { accessToken } = await mutateAsync(data)
+
+      console.log({ accessToken })
+    } catch {
+      toast.error('Something got wrong')
+    }
+  })
+
+  return {
+    handleSubmit,
+    register,
+    errors,
+    isLoading
+  }
 }
