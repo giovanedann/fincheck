@@ -8,7 +8,7 @@ type InputProps = ComponentProps<'input'> & {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ placeholder, name, id, error, ...props }, ref) => {
+  ({ placeholder, name, id, error, className, ...props }, ref) => {
     const inputId = id ?? name
 
     return (
@@ -21,8 +21,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           placeholder=" "
           className={
             cn(
-              "bg-white w-full rounded-lg border pt-4 placeholder-shown:pt-0 border-gray-500 focus:border-gray-800 px-3 h-[52px] text-gray-800 peer transition-all ease-in-out duration-300 outline-none",
-              error && '!border-red-900'
+              'bg-white w-full rounded-lg border pt-4 placeholder-shown:pt-0 border-gray-500 focus:border-gray-800 px-3 h-[52px] text-gray-800 peer transition-all ease-in-out duration-300 outline-none',
+              error && '!border-red-900',
+              className
             )
           }
         />
