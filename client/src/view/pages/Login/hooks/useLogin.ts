@@ -4,8 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 
-import AuthService from "../../../../app/infra/services/AuthService";
+import AuthService from "../../../../app/data/services/AuthService";
 import { SignInParams } from "../../../../app/domain/services/AuthService";
+import { useAuth } from "../../../../app/hooks/useAuth";
 
 const schema = z.object({
   email: z.string().nonempty('E-mail is required').email('E-mail must be a valid e-mail format'),
@@ -29,11 +30,13 @@ export function useLogin() {
     }
   })
 
+  const { signIn } = useAuth()
+
   const handleSubmit = hookFormHandleSubmit(async (data) => {
     try {
       const { accessToken } = await mutateAsync(data)
 
-      console.log({ accessToken })
+      signIn(accessToken)
     } catch {
       toast.error('Invalid credentials')
     }
