@@ -5,6 +5,7 @@ import { localStorageKeys } from "../config/localStorageKeys";
 import { useQuery } from "@tanstack/react-query";
 import UserService from "../data/services/UserService";
 import { toast } from "react-hot-toast";
+import { Splash } from "../../view/components";
 
 type AuthContextValues = {
   signedIn: boolean;
@@ -25,6 +26,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return Boolean(storedAccessToken)
   })
 
+  const { isError, isSuccess, isFetching, remove } = useQuery({
+    queryKey: ['users', 'me'],
+    queryFn: () => UserService.me(),
+    enabled: signedIn,
+    staleTime: Infinity
+  });
+
   const signIn = useCallback((accessToken: string) => {
     LocalStorage.set(localStorageKeys.ACCESS_TOKEN, accessToken)
 
@@ -35,13 +43,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
     LocalStorage.remove(localStorageKeys.ACCESS_TOKEN)
 
     setSignedIn(false)
-  }, [])
-
-  const { isError } = useQuery({
-    queryKey: ['loggedUser'],
-    queryFn: () => UserService.me(),
-    enabled: signedIn
-  });
+    remove()
+  }, [remove])
 
   useEffect(() => {
     if (isError) {
@@ -51,10 +54,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [isError, signOut])
 
   const contextValues: AuthContextValues = useMemo(() => ({
-    signedIn,
+    signedIn: isSuccess && signedIn,
     signIn,
     signOut
   }), [
+    isSuccess,
     signedIn,
     signIn,
     signOut
@@ -62,7 +66,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   return (
     <AuthContext.Provider value={contextValues}>
-      {children}
+      <Splash show={isFetching} />
+
+      {!isFetching && children}
     </AuthContext.Provider>
   )
 }
