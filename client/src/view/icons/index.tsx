@@ -1,0 +1,6 @@
+export { ExpensesIcon } from './ExpensesIcon'
+export { EyeIcon } from './EyeIcon'
+export { FilterIcon } from './FilterIcon'
+export { IncomeIcon } from './IncomeIcon'
+export { TransactionsIcon } from './TransactionsIcon'
+export { CategoryIcon } from './categories/CategoryIcon'
