@@ -21,7 +21,7 @@ export function App() {
         <Router />
       </AuthProvider>
 
-      <ReactQueryDevtools panelPosition="right" position="top-right" />
+      <ReactQueryDevtools panelPosition="right" position="bottom-right" />
     </QueryClientProvider>
   )
 }
