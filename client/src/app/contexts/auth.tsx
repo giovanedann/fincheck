@@ -7,11 +7,13 @@ import { localStorageKeys } from 'app/config/localStorageKeys';
 import UserService from 'app/data/services/UserService';
 
 import { Splash } from 'view/components';
+import { MeResponse } from 'app/domain/services/UserService';
 
 type AuthContextValues = {
   signedIn: boolean;
   signIn: (accessToken: string) => void;
   signOut: () => void;
+  loggedUserData: MeResponse | undefined;
 }
 
 type AuthProviderProps = {
@@ -27,7 +29,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     return Boolean(storedAccessToken)
   })
 
-  const { isError, isSuccess, isFetching, remove } = useQuery({
+  const { isError, isSuccess, isFetching, remove, data } = useQuery({
     queryKey: ['users', 'me'],
     queryFn: () => UserService.me(),
     enabled: signedIn,
@@ -57,9 +59,11 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const contextValues: AuthContextValues = useMemo(() => ({
     signedIn: isSuccess && signedIn,
     signIn,
-    signOut
+    signOut,
+    loggedUserData: data
   }), [
     isSuccess,
+    data,
     signedIn,
     signIn,
     signOut
