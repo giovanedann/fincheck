@@ -1,12 +1,16 @@
 import { SwiperSlide, Swiper } from 'swiper/react';
 import 'swiper/css'
 
+import { useWindowWidth } from 'app/hooks/useWindowWidth';
+
 import { EyeIcon } from 'view/icons';
 import { AccountsSliderNavigation } from './AccountsSliderNavigation';
 import { AccountCard } from '.';
 import { useAccounts } from './hooks/useAccounts';
 
 export function Accounts() {
+  const windowWidth = useWindowWidth()
+
   const { setSliderState, sliderState } = useAccounts()
 
   return (
@@ -27,11 +31,11 @@ export function Accounts() {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col justify-end">
+      <div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
         <div>
           <Swiper
             spaceBetween={16}
-            slidesPerView={2.1}
+            slidesPerView={windowWidth > 550 ? 2.1 : 1.1}
             onSlideChange={({ isBeginning, isEnd }) => {
               setSliderState({
                 isBeginning,
