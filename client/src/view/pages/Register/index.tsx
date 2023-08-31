@@ -41,6 +41,12 @@ export function Register() {
           error={errors.password?.message}
           {...register('password')}
         />
+        <Input
+          type="password"
+          placeholder="Password confirmation"
+          error={errors.passwordConfirmation?.message}
+          {...register('passwordConfirmation')}
+        />
 
         <Button type="submit" className="mt-2" isLoading={isLoading}>
           Sign up

@@ -12,6 +12,12 @@ const schema = z.object({
   name: z.string().nonempty('Name is required'),
   email: z.string().nonempty('E-mail is required').email('E-mail must be a valid e-mail format'),
   password: z.string().nonempty('Password is required').min(8, 'Password must have at least 8 characters'),
+  passwordConfirmation: z.string().nonempty('Password confirmation is required'),
+}).refine(({ password, passwordConfirmation }) => {
+  return password === passwordConfirmation
+}, {
+  message: 'Passwords do not match',
+  path: ['passwordConfirmation']
 })
 
 type RegisterFormData = z.infer<typeof schema>
