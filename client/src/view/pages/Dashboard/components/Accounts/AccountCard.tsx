@@ -1,5 +1,5 @@
 import { formatCurrency } from 'app/utils/formatCurrency';
-import { BankAccountTypeIcon } from '../../../../icons';
+import { BankAccountTypeIcon } from 'view/icons';
 
 type AccountCardProps = {
   color: string;
