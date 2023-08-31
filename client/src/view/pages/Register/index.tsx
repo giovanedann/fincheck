@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
-import { Button, Input } from "../../components";
-import { useRegister } from "./hooks/useRegister";
+import { Link } from 'react-router-dom';
+import { Button, Input } from 'view/components';
+import { useRegister } from './hooks/useRegister';
 
 export function Register() {
   const { errors, handleSubmit, register, isLoading } = useRegister()

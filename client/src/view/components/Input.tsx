@@ -1,6 +1,6 @@
-import { ComponentProps, forwardRef } from "react"
+import { ComponentProps, forwardRef } from 'react'
 import { CrossCircledIcon } from '@radix-ui/react-icons'
-import { cn } from "../../app/utils/cn";
+import { cn } from 'app/utils/cn';
 
 type InputProps = ComponentProps<'input'> & {
   name: string;

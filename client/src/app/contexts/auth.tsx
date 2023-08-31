@@ -1,11 +1,12 @@
-import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
-import LocalStorage from "../infra/cache/LocalStorage";
-import { localStorageKeys } from "../config/localStorageKeys";
-import { useQuery } from "@tanstack/react-query";
-import UserService from "../data/services/UserService";
-import { toast } from "react-hot-toast";
-import { Splash } from "../../view/components";
+import LocalStorage from 'app/infra/cache/LocalStorage';
+import { localStorageKeys } from 'app/config/localStorageKeys';
+import UserService from 'app/data/services/UserService';
+
+import { Splash } from 'view/components';
 
 type AuthContextValues = {
   signedIn: boolean;

@@ -1,9 +1,9 @@
-import { SwiperSlide, Swiper } from "swiper/react";
+import { SwiperSlide, Swiper } from 'swiper/react';
 import 'swiper/css'
-import { EyeIcon } from "../../../../icons";
-import { AccountsSliderNavigation } from "./AccountsSliderNavigation";
-import { AccountCard } from ".";
-import { useAccounts } from "./hooks/useAccounts";
+import { EyeIcon } from '../../../../icons';
+import { AccountsSliderNavigation } from './AccountsSliderNavigation';
+import { AccountCard } from '.';
+import { useAccounts } from './hooks/useAccounts';
 
 export function Accounts() {
   const { setSliderState, sliderState } = useAccounts()

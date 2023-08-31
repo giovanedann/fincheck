@@ -1,6 +1,6 @@
-import { Transition } from "@headlessui/react";
-import { Logo } from ".";
-import { Spinner } from "./Spinner";
+import { Transition } from '@headlessui/react';
+import { Logo } from '.';
+import { Spinner } from './Spinner';
 
 type SplashProps = {
   show: boolean;

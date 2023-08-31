@@ -1,12 +1,12 @@
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from "@tanstack/react-query";
-import { toast } from "react-hot-toast";
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
-import AuthService from "../../../../app/data/services/AuthService";
-import { SignInParams } from "../../../../app/domain/services/AuthService";
-import { useAuth } from "../../../../app/hooks/useAuth";
+import AuthService from 'app/data/services/AuthService';
+import { SignInParams } from 'app/domain/services/AuthService';
+import { useAuth } from 'app/hooks/useAuth';
 
 const schema = z.object({
   email: z.string().nonempty('E-mail is required').email('E-mail must be a valid e-mail format'),

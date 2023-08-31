@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { env } from '../../config/env'
-import LocalStorage from '../cache/LocalStorage'
-import { localStorageKeys } from '../../config/localStorageKeys'
-import { sleep } from '../../utils/sleep'
+import { env } from 'app/config/env'
+import LocalStorage from 'app/infra/cache/LocalStorage'
+import { localStorageKeys } from 'app/config/localStorageKeys'
+import { sleep } from 'app/utils/sleep'
 
 export const httpClient = axios.create({
   baseURL: env.apiBaseUrl,

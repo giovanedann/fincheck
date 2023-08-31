@@ -1,5 +1,5 @@
-import { Logo, UserMenu } from "../../components";
-import { Accounts, Transactions } from "./components";
+import { Logo, UserMenu } from 'view/components';
+import { Accounts, Transactions } from './components';
 
 export function Dashboard() {
   return (

@@ -1,4 +1,4 @@
-import { iconsMap } from "./iconsMap"
+import { iconsMap } from './iconsMap'
 
 type BankAccountTypeIcon = {
   type: keyof typeof iconsMap
