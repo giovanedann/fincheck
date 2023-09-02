@@ -14,6 +14,7 @@ export function useAccounts() {
     setSliderState,
     areValuesVisible,
     toggleValuesVisibility,
-    isLoading: false
+    isLoading: false,
+    accounts: []
   }
 }

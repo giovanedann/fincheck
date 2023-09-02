@@ -9,6 +9,7 @@ import { useAccounts } from './hooks/useAccounts';
 import { AccountCard, AccountsSliderNavigation } from '.';
 import { cn } from 'app/utils/cn';
 import { Spinner } from 'view/components';
+import { PlusIcon } from '@radix-ui/react-icons';
 
 export function Accounts() {
   const windowWidth = useWindowWidth()
@@ -18,7 +19,8 @@ export function Accounts() {
     sliderState,
     areValuesVisible,
     toggleValuesVisibility,
-    isLoading
+    isLoading,
+    accounts
   } = useAccounts()
 
   return (
@@ -53,41 +55,63 @@ export function Accounts() {
           </div>
 
           <div className="flex-1 flex flex-col justify-end mt-10 md:mt-0">
-            <div>
-              <Swiper
-                spaceBetween={16}
-                slidesPerView={windowWidth > 550 ? 2.1 : 1.1}
-                onSlideChange={({ isBeginning, isEnd }) => {
-                  setSliderState({
-                    isBeginning,
-                    isEnd
-                  })
-                }}
-              >
-                <div className="flex items-center justify-between mb-4" slot="container-start">
+            {accounts.length === 0 && (
+              <>
+                <div className="mb-4" slot="container-start">
                   <strong className="text-white tracking-[-1px] text-lg font-bold">
                     My bank accounts
                   </strong>
-
-                  <AccountsSliderNavigation
-                    isBeginning={sliderState.isBeginning}
-                    isEnd={sliderState.isEnd}
-                  />
                 </div>
 
-                <SwiperSlide>
-                  <AccountCard color="#7950f2" balance={1202.56} name="Nubank" type="CHECKING" />
-                </SwiperSlide>
+                <button className="mt-4 h-52 rounded-2xl border-2 border-dashed border-teal-600 flex flex-col items-center justify-center gap-4 text-white">
+                  <div className="h-11 w-11 rounded-full border-2 border-dashed border-white grid place-items-center">
+                    <PlusIcon className="w-6 h-6" />
+                  </div>
 
-                <SwiperSlide>
-                  <AccountCard color="#000" balance={1440.56} name="XP Investimentos" type="CASH" />
-                </SwiperSlide>
+                  <span className="tracking-[-0.5px] font-medium block w-32 text-center">
+                    Add new bank account
+                  </span>
+                </button>
+              </>
+            )}
 
-                <SwiperSlide>
-                  <AccountCard color="#f81b13" balance={2503.56} name="Santander" type="INVESTMENT" />
-                </SwiperSlide>
-              </Swiper>
-            </div>
+            {accounts.length > 0 && (
+              <div>
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={windowWidth > 550 ? 2.1 : 1.1}
+                  onSlideChange={({ isBeginning, isEnd }) => {
+                    setSliderState({
+                      isBeginning,
+                      isEnd
+                    })
+                  }}
+                >
+                  <div className="flex items-center justify-between mb-4" slot="container-start">
+                    <strong className="text-white tracking-[-1px] text-lg font-bold">
+                      My bank accounts
+                    </strong>
+
+                    <AccountsSliderNavigation
+                      isBeginning={sliderState.isBeginning}
+                      isEnd={sliderState.isEnd}
+                    />
+                  </div>
+
+                  <SwiperSlide>
+                    <AccountCard color="#7950f2" balance={1202.56} name="Nubank" type="CHECKING" />
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <AccountCard color="#000" balance={1440.56} name="XP Investimentos" type="CASH" />
+                  </SwiperSlide>
+
+                  <SwiperSlide>
+                    <AccountCard color="#f81b13" balance={2503.56} name="Santander" type="INVESTMENT" />
+                  </SwiperSlide>
+                </Swiper>
+              </div>
+            )}
           </div>
         </>
       )}
