@@ -9,5 +9,11 @@ export function useAccounts() {
 
   const { areValuesVisible, toggleValuesVisibility } = useDashboard()
 
-  return { sliderState, setSliderState, areValuesVisible, toggleValuesVisibility }
+  return {
+    sliderState,
+    setSliderState,
+    areValuesVisible,
+    toggleValuesVisibility,
+    isLoading: false
+  }
 }
