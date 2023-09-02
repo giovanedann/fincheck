@@ -3,15 +3,10 @@ import { GetStorage, RemoveStorage, SetStorage } from '../../data/protocols/cach
 
 class LocalStorage implements SetStorage, GetStorage, RemoveStorage {
   set(key: string, value: any): void {
-    if (!value) {
-      localStorage.removeItem(key)
-      return
-    }
-
     localStorage.setItem(key, JSON.stringify(value))
   }
 
-  get(key: string): string | null {
+  get<T = string>(key: string): T | null {
     const localStorageItem = localStorage.getItem(key)
     return localStorageItem ? JSON.parse(localStorageItem) : null
   }
