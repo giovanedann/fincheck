@@ -2,11 +2,11 @@ import { SwiperSlide, Swiper } from 'swiper/react';
 import 'swiper/css'
 
 import { useWindowWidth } from 'app/hooks/useWindowWidth';
+import { formatCurrency } from 'app/utils/formatCurrency';
 
 import { EyeIcon } from 'view/icons';
-import { AccountsSliderNavigation } from './AccountsSliderNavigation';
-import { AccountCard } from '.';
 import { useAccounts } from './hooks/useAccounts';
+import { AccountCard, AccountsSliderNavigation } from '.';
 
 export function Accounts() {
   const windowWidth = useWindowWidth()
@@ -22,7 +22,7 @@ export function Accounts() {
 
         <div className="flex items-center gap-2">
           <strong className="text-2xl tracking-[-1px] text-white">
-            R$ 10.340,00
+            {formatCurrency(10345.95)}
           </strong>
 
           <button className="w-8 h-8 flex items-center justify-center">
