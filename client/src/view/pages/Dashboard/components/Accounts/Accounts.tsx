@@ -7,11 +7,17 @@ import { formatCurrency } from 'app/utils/formatCurrency';
 import { EyeIcon } from 'view/icons';
 import { useAccounts } from './hooks/useAccounts';
 import { AccountCard, AccountsSliderNavigation } from '.';
+import { cn } from 'app/utils/cn';
 
 export function Accounts() {
   const windowWidth = useWindowWidth()
 
-  const { setSliderState, sliderState } = useAccounts()
+  const {
+    setSliderState,
+    sliderState,
+    areValuesVisible,
+    toggleValuesVisibility
+  } = useAccounts()
 
   return (
     <div className="bg-teal-900 flex flex-col rounded-2xl w-full h-full px-4 py-8 lg:p-10">
@@ -21,12 +27,17 @@ export function Accounts() {
         </span>
 
         <div className="flex items-center gap-2">
-          <strong className="text-2xl tracking-[-1px] text-white">
+          <strong
+            className={cn(
+              'text-2xl tracking-[-1px] text-white',
+              !areValuesVisible && 'blur-md'
+            )}
+          >
             {formatCurrency(10345.95)}
           </strong>
 
-          <button className="w-8 h-8 flex items-center justify-center">
-            <EyeIcon open />
+          <button className="w-8 h-8 flex items-center justify-center" onClick={toggleValuesVisibility}>
+            <EyeIcon open={!areValuesVisible} />
           </button>
         </div>
       </div>

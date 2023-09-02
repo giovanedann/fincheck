@@ -1,13 +1,17 @@
 import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { CategoryIcon, FilterIcon, TransactionsIcon } from 'view/icons';
-
 import { MONTHS } from 'app/config/constants';
-import { MonthSliderOption, MonthSliderNavigation } from '.';
 import { formatCurrency } from 'app/utils/formatCurrency';
+import { cn } from 'app/utils/cn';
+
+import { CategoryIcon, FilterIcon, TransactionsIcon } from 'view/icons';
+import { MonthSliderOption, MonthSliderNavigation } from '.';
+import { useTransactions } from './hooks/useTransactions';
 
 export function Transactions() {
+  const { areValuesVisible } = useTransactions()
+
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col">
       <header>
@@ -51,7 +55,12 @@ export function Transactions() {
             </div>
           </div>
 
-          <span className="text-red-800 tracking-[-0.5px]">
+          <span
+            className={cn(
+              'text-red-800 tracking-[-0.5px]',
+              !areValuesVisible && 'blur-sm'
+            )}
+          >
             - {formatCurrency(100.34)}
           </span>
         </div>
@@ -67,7 +76,12 @@ export function Transactions() {
               </div>
             </div>
 
-            <span className="text-green-800 tracking-[-0.5px]">
+            <span
+              className={cn(
+                'text-green-800 tracking-[-0.5px]',
+                !areValuesVisible && 'blur-sm'
+              )}
+            >
               + {formatCurrency(100.34)}
             </span>
           </div>
