@@ -9,9 +9,10 @@ import { CategoryIcon, FilterIcon, TransactionsIcon } from 'view/icons';
 import { MonthSliderOption, MonthSliderNavigation } from '.';
 import { useTransactions } from './hooks/useTransactions';
 import { Spinner } from 'view/components';
+import emptyStateImage from 'assets/images/empty-state.svg'
 
 export function Transactions() {
-  const { areValuesVisible, isLoading } = useTransactions()
+  const { areValuesVisible, isLoading, transactions } = useTransactions()
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col">
@@ -54,48 +55,36 @@ export function Transactions() {
           </header>
 
           <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
-            <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-              <div className="flex-1 flex items-center gap-3">
-                <CategoryIcon type="expense" />
-
-                <div>
-                  <strong className="font-bold tracking-[-0.5px]">MC Donalds</strong>
-                  <span className="text-sm text-gray-600 block">04/05/2023</span>
-                </div>
+            {transactions.length === 0 && (
+              <div className="flex flex-col items-center justify-center h-full">
+                <img src={emptyStateImage} alt="Girl searching for money in empty bags with a bloom in her eyes" />
+                <p className="text-gray-700">No transactions found!</p>
               </div>
+            )}
 
-              <span
-                className={cn(
-                  'text-red-800 tracking-[-0.5px]',
-                  !areValuesVisible && 'blur-sm'
-                )}
-              >
-                - {formatCurrency(100.34)}
-              </span>
-            </div>
+            {transactions.length > 0 && (
+              new Array(20).fill(null).map(() => (
+                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+                  <div className="flex-1 flex items-center gap-3">
+                    <CategoryIcon type="income" />
 
-            {new Array(20).fill(null).map(() => (
-              <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
-                <div className="flex-1 flex items-center gap-3">
-                  <CategoryIcon type="income" />
-
-                  <div>
-                    <strong className="font-bold tracking-[-0.5px]">MC Donalds</strong>
-                    <span className="text-sm text-gray-600 block">04/05/2023</span>
+                    <div>
+                      <strong className="font-bold tracking-[-0.5px]">MC Donalds</strong>
+                      <span className="text-sm text-gray-600 block">04/05/2023</span>
+                    </div>
                   </div>
+
+                  <span
+                    className={cn(
+                      'text-green-800 tracking-[-0.5px]',
+                      !areValuesVisible && 'blur-sm'
+                    )}
+                  >
+                    + {formatCurrency(100.34)}
+                  </span>
                 </div>
-
-                <span
-                  className={cn(
-                    'text-green-800 tracking-[-0.5px]',
-                    !areValuesVisible && 'blur-sm'
-                  )}
-                >
-                  + {formatCurrency(100.34)}
-                </span>
-              </div>
-            ))}
-
+              ))
+            )}
           </div>
         </>
       )}
