@@ -1,7 +1,3 @@
-export function Transactions() {
-  return (
-    <div className="bg-gray-100 rounded-2xl w-full h-full p-10">
-      Transactions
-    </div>
-  )
-}
+export { MonthSliderNavigation } from './MonthSliderNavigation'
+export { MonthSliderOption } from './MonthSliderOption'
+export { Transactions } from './Transactions'

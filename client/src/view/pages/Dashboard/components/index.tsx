@@ -1,2 +1,2 @@
 export { AccountCard, Accounts, AccountsSliderNavigation } from './Accounts'
-export { Transactions } from './Transactions'
+export { MonthSliderNavigation, MonthSliderOption, Transactions } from './Transactions'
