@@ -91,7 +91,7 @@ export function Transactions() {
 
                   <span
                     className={cn(
-                      'text-red-800 tracking-[-0.5px]',
+                      'text-red-800 tracking-[-0.5px] transition-all duration-300 ease-in-out',
                       !areValuesVisible && 'blur-sm'
                     )}
                   >

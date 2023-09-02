@@ -30,7 +30,7 @@ export function AccountCard({ balance, color, name, type }: AccountCardProps) {
       <div>
         <span
           className={cn(
-            'text-gray-800 font-medium tracking-[-0.5px] mt-4 block',
+            'text-gray-800 font-medium tracking-[-0.5px] mt-4 block transition-all duration-300 ease-in-out',
             !areValuesVisible && 'blur-sm'
           )}
         >

@@ -41,7 +41,7 @@ export function Accounts() {
             <div className="flex items-center gap-2">
               <strong
                 className={cn(
-                  'text-2xl tracking-[-1px] text-white',
+                  'text-2xl tracking-[-1px] text-white transition-all duration-300 ease-in-out',
                   !areValuesVisible && 'blur-md'
                 )}
               >
