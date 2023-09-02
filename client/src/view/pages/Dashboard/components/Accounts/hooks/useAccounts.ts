@@ -15,6 +15,6 @@ export function useAccounts() {
     areValuesVisible,
     toggleValuesVisibility,
     isLoading: false,
-    accounts: []
+    accounts: [1]
   }
 }

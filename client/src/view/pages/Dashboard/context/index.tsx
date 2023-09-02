@@ -19,7 +19,6 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
   const toggleValuesVisibility = useCallback(() => {
     setAreValuesVisible(prev => {
-      alert(!prev)
       LocalStorage.set(localStorageKeys.VALUES_VISIBILITY, !prev)
       return !prev
     })

@@ -12,17 +12,24 @@ import { Spinner } from 'view/components';
 import emptyStateImage from 'assets/images/empty-state.svg'
 
 export function Transactions() {
-  const { areValuesVisible, isLoading, transactions } = useTransactions()
+  const {
+    areValuesVisible,
+    isInitialLoading,
+    transactions,
+    isLoading
+  } = useTransactions()
+
+  const hasTransactions = transactions.length > 0
 
   return (
     <div className="bg-gray-100 rounded-2xl w-full h-full p-10 flex flex-col">
-      {isLoading && (
+      {isInitialLoading && (
         <div className="w-full h-full grid place-items-center">
           <Spinner className="w-10 h-10" />
         </div>
       )}
 
-      {!isLoading && (
+      {!isInitialLoading && (
         <>
           <header>
             <div className="flex items-center justify-between">
@@ -55,18 +62,26 @@ export function Transactions() {
           </header>
 
           <div className="mt-4 space-y-2 flex-1 overflow-y-auto">
-            {transactions.length === 0 && (
+            {isLoading && (
               <div className="flex flex-col items-center justify-center h-full">
-                <img src={emptyStateImage} alt="Girl searching for money in empty bags with a bloom in her eyes" />
-                <p className="text-gray-700">No transactions found!</p>
+                <Spinner className="h-10 w-10" />
               </div>
             )}
 
-            {transactions.length > 0 && (
-              new Array(20).fill(null).map(() => (
+            {(!hasTransactions && !isLoading) && (
+              <div className="flex flex-col items-center justify-center h-full">
+                <>
+                  <img src={emptyStateImage} alt="Girl searching for money in empty bags with a bloom in her eyes" />
+                  <p className="text-gray-700">No transactions found!</p>
+                </>
+              </div>
+            )}
+
+            {(hasTransactions && !isLoading) && (
+              new Array(7).fill(null).map(() => (
                 <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
                   <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="income" />
+                    <CategoryIcon type="expense" />
 
                     <div>
                       <strong className="font-bold tracking-[-0.5px]">MC Donalds</strong>
@@ -76,11 +91,11 @@ export function Transactions() {
 
                   <span
                     className={cn(
-                      'text-green-800 tracking-[-0.5px]',
+                      'text-red-800 tracking-[-0.5px]',
                       !areValuesVisible && 'blur-sm'
                     )}
                   >
-                    + {formatCurrency(100.34)}
+                    - {formatCurrency(100.34)}
                   </span>
                 </div>
               ))
