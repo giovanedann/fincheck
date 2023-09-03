@@ -29,7 +29,7 @@ export function TransactionTypeDropdown() {
 
         <Dropdown.Item className="gap-2">
           <TransactionsIcon />
-          All
+          Transactions
         </Dropdown.Item>
       </Dropdown.Content>
     </Dropdown.Root>

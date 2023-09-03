@@ -1,6 +1,6 @@
 import { PlusIcon } from '@radix-ui/react-icons';
 import { Dropdown } from 'view/components';
-import { CategoryIcon, BankAccountIcon } from 'view/icons';
+import { BankAccountIcon, ExpensesIcon, IncomeIcon } from 'view/icons';
 
 export function Fab() {
   return (
@@ -17,12 +17,12 @@ export function Fab() {
 
         <Dropdown.Content side="top" className="mb-2 mr-4">
           <Dropdown.Item className="gap-2">
-            <CategoryIcon type="expense" />
+            <ExpensesIcon />
             New expense
           </Dropdown.Item>
 
           <Dropdown.Item className="gap-2">
-            <CategoryIcon type="income" />
+            <IncomeIcon />
             New income
           </Dropdown.Item>
 
