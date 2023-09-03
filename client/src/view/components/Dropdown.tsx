@@ -59,7 +59,7 @@ function Item({ children, className, onSelect }: ItemProps) {
       onSelect={onSelect}
       className={
         cn(
-          'min-h-[3rem] outline-none flex items-center p-4 text-gray-800 text-sm data-[highlighted]:bg-gray-50 cursor-pointer rounded-2xl transition-all duration-300 ease-in-out',
+          'min-h-[2.5rem] outline-none flex items-center px-4 py-2 text-gray-800 text-sm data-[highlighted]:bg-gray-50 cursor-pointer rounded-2xl transition-all duration-300 ease-in-out',
           className
         )}
     >
