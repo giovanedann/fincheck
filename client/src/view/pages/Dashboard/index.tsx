@@ -1,5 +1,5 @@
 import { Logo, UserMenu } from 'view/components';
-import { Accounts, Transactions } from './components';
+import { Accounts, Fab, Transactions } from './components';
 import { useAuth } from 'app/hooks/useAuth';
 import { DashboardProvider } from './context';
 
@@ -23,6 +23,8 @@ export function Dashboard() {
             <Transactions />
           </div>
         </main>
+
+        <Fab />
       </div>
     </DashboardProvider>
   )
