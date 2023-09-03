@@ -5,7 +5,7 @@ import { formatCurrency } from 'app/utils/formatCurrency';
 import { cn } from 'app/utils/cn';
 
 import { CategoryIcon, FilterIcon } from 'view/icons';
-import { MonthSliderOption, MonthSliderNavigation, TransactionTypeDropdown } from '.';
+import { MonthSliderOption, MonthSliderNavigation, TransactionTypeDropdown, FiltersModal } from '.';
 import { useTransactions } from './hooks/useTransactions';
 import { Spinner } from 'view/components';
 import emptyStateImage from 'assets/images/empty-state.svg'
@@ -15,7 +15,10 @@ export function Transactions() {
     areValuesVisible,
     isInitialLoading,
     transactions,
-    isLoading
+    isLoading,
+    isFiltersModalOpen,
+    handleCloseFiltersModal,
+    handleOpenFiltersModal
   } = useTransactions()
 
   const hasTransactions = transactions.length > 0
@@ -30,11 +33,13 @@ export function Transactions() {
 
       {!isInitialLoading && (
         <>
+          <FiltersModal open={isFiltersModalOpen} onClose={handleCloseFiltersModal} />
+
           <header>
             <div className="flex items-center justify-between">
               <TransactionTypeDropdown />
 
-              <button>
+              <button onClick={handleOpenFiltersModal}>
                 <FilterIcon />
               </button>
             </div>
@@ -72,7 +77,7 @@ export function Transactions() {
 
             {(hasTransactions && !isLoading) && (
               new Array(7).fill(null).map(() => (
-                <div className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+                <div key={Math.random()} className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
                   <div className="flex-1 flex items-center gap-3">
                     <CategoryIcon type="expense" />
 
