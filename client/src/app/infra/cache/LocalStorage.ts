@@ -8,7 +8,7 @@ class LocalStorage implements SetStorage, GetStorage, RemoveStorage {
 
   get<T = string>(key: string): T | null {
     const localStorageItem = localStorage.getItem(key)
-    return localStorageItem ? JSON.parse(localStorageItem) : null
+    return localStorageItem ? JSON.parse(localStorageItem) as T : null
   }
 
   remove(key: string): void {
