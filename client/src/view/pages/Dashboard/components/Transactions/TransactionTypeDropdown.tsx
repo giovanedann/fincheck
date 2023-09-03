@@ -7,13 +7,13 @@ export function TransactionTypeDropdown() {
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
-        <button className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
           <TransactionsIcon />
           <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">
             Transactions
           </span>
           <ChevronDownIcon className="text-gray-900" />
-        </button>
+        </div>
       </Dropdown.Trigger>
 
       <Dropdown.Content className="w-[14.5rem] z-50 mt-2" side="bottom">
