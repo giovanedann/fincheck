@@ -20,6 +20,8 @@ export function FiltersModal({ onClose, open }: FiltersModalProps) {
   const {
     selectedBankAccountId,
     handleSelectBankAccount,
+    selectedYear,
+    handleChangeYear
   } = useFiltersModal()
 
   return (
@@ -53,15 +55,23 @@ export function FiltersModal({ onClose, open }: FiltersModalProps) {
         </span>
 
         <div className="mt-2 w-full flex items-center justify-between">
-          <button className="w-12 h-12 grid place-items-center">
+          <button
+            className="w-12 h-12 grid place-items-center"
+            onClick={() => handleChangeYear(-1)}
+          >
             <ChevronLeftIcon className="w-6 h-6" />
           </button>
 
           <div className="flex-1 text-center">
-            <span className="text-sm font-medium tacking-[-0.5px]">2023</span>
+            <span className="text-sm font-medium tacking-[-0.5px]">
+              {selectedYear}
+            </span>
           </div>
 
-          <button className="w-12 h-12 grid place-items-center">
+          <button
+            className="w-12 h-12 grid place-items-center"
+            onClick={() => handleChangeYear(1)}
+          >
             <ChevronRightIcon className="w-6 h-6" />
           </button>
         </div>
