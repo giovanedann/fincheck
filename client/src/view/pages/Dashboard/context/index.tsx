@@ -5,16 +5,20 @@ import { ReactNode, createContext, useCallback, useEffect, useMemo, useState } f
 type DashboardContextValues = {
   areValuesVisible: boolean;
   isNewAccountModalOpen: boolean;
+  isNewTransactionModalOpen: boolean;
   toggleValuesVisibility: () => void;
   openNewAccountModal: () => void;
   closeNewAccountModal: () => void;
+  openNewTransactionModal: () => void;
+  closeNewTransactionModal: () => void;
 }
 
 export const DashboardContext = createContext({} as DashboardContextValues)
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState<boolean>(false)
-  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState<boolean>(false)
+  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState<boolean>(true)
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState<boolean>(true)
 
   useEffect(() => {
     const localStorageValuesVisibility = LocalStorage.get<boolean>(localStorageKeys.VALUES_VISIBILITY)
@@ -36,18 +40,32 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setIsNewAccountModalOpen(false)
   }, [])
 
+  const openNewTransactionModal = useCallback(() => {
+    setIsNewTransactionModalOpen(true)
+  }, [])
+
+  const closeNewTransactionModal = useCallback(() => {
+    setIsNewTransactionModalOpen(false)
+  }, [])
+
   const contextValues = useMemo<DashboardContextValues>(() => ({
     areValuesVisible,
     isNewAccountModalOpen,
     toggleValuesVisibility,
     openNewAccountModal,
     closeNewAccountModal,
+    openNewTransactionModal,
+    closeNewTransactionModal,
+    isNewTransactionModalOpen,
   }), [
     areValuesVisible,
     isNewAccountModalOpen,
+    isNewTransactionModalOpen,
     toggleValuesVisibility,
     openNewAccountModal,
     closeNewAccountModal,
+    openNewTransactionModal,
+    closeNewTransactionModal,
   ])
 
   return (
