@@ -6,10 +6,11 @@ type DashboardContextValues = {
   areValuesVisible: boolean;
   isNewAccountModalOpen: boolean;
   isNewTransactionModalOpen: boolean;
+  newTransactionType: 'INCOME' | 'EXPENSE' | null;
   toggleValuesVisibility: () => void;
   openNewAccountModal: () => void;
   closeNewAccountModal: () => void;
-  openNewTransactionModal: () => void;
+  openNewTransactionModal: (type: 'INCOME' | 'EXPENSE') => void;
   closeNewTransactionModal: () => void;
 }
 
@@ -17,8 +18,9 @@ export const DashboardContext = createContext({} as DashboardContextValues)
 
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState<boolean>(false)
-  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState<boolean>(true)
+  const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState<boolean>(false)
   const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState<boolean>(true)
+  const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null)
 
   useEffect(() => {
     const localStorageValuesVisibility = LocalStorage.get<boolean>(localStorageKeys.VALUES_VISIBILITY)
@@ -40,11 +42,13 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     setIsNewAccountModalOpen(false)
   }, [])
 
-  const openNewTransactionModal = useCallback(() => {
+  const openNewTransactionModal = useCallback((type: 'INCOME' | 'EXPENSE') => {
     setIsNewTransactionModalOpen(true)
+    setNewTransactionType(type)
   }, [])
 
   const closeNewTransactionModal = useCallback(() => {
+    setNewTransactionType(null)
     setIsNewTransactionModalOpen(false)
   }, [])
 
@@ -57,10 +61,12 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     openNewTransactionModal,
     closeNewTransactionModal,
     isNewTransactionModalOpen,
+    newTransactionType,
   }), [
     areValuesVisible,
     isNewAccountModalOpen,
     isNewTransactionModalOpen,
+    newTransactionType,
     toggleValuesVisibility,
     openNewAccountModal,
     closeNewAccountModal,

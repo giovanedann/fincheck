@@ -4,7 +4,7 @@ import { BankAccountIcon, ExpensesIcon, IncomeIcon } from 'view/icons';
 import { useDashboard } from '../../hooks/useDashboard';
 
 export function Fab() {
-  const { openNewAccountModal } = useDashboard()
+  const { openNewAccountModal, openNewTransactionModal } = useDashboard()
 
   return (
     <div className="fixed right-4 bottom-4">
@@ -19,12 +19,12 @@ export function Fab() {
         </Dropdown.Trigger>
 
         <Dropdown.Content side="top" className="mb-2 mr-4">
-          <Dropdown.Item className="gap-2">
+          <Dropdown.Item className="gap-2" onSelect={() => openNewTransactionModal('EXPENSE')}>
             <ExpensesIcon />
             New expense
           </Dropdown.Item>
 
-          <Dropdown.Item className="gap-2">
+          <Dropdown.Item className="gap-2" onSelect={() => openNewTransactionModal('INCOME')}>
             <IncomeIcon />
             New income
           </Dropdown.Item>

@@ -2,7 +2,7 @@ import { Logo, UserMenu } from 'view/components';
 import { Accounts, Fab, Transactions } from './components';
 import { useAuth } from 'app/hooks/useAuth';
 import { DashboardProvider } from './context';
-import { NewAccountModal } from './modals';
+import { NewAccountModal, NewTransactionModal } from './modals';
 
 export function Dashboard() {
   const { loggedUserData } = useAuth()
@@ -28,6 +28,7 @@ export function Dashboard() {
         <Fab />
 
         <NewAccountModal />
+        <NewTransactionModal />
       </div>
     </DashboardProvider>
   )
