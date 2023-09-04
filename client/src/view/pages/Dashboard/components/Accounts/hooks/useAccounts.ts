@@ -7,7 +7,11 @@ export function useAccounts() {
     isEnd: false
   })
 
-  const { areValuesVisible, toggleValuesVisibility } = useDashboard()
+  const {
+    areValuesVisible,
+    toggleValuesVisibility,
+    openNewAccountModal
+  } = useDashboard()
 
   return {
     sliderState,
@@ -15,6 +19,7 @@ export function useAccounts() {
     areValuesVisible,
     toggleValuesVisibility,
     isLoading: false,
-    accounts: [1]
+    accounts: [],
+    openNewAccountModal
   }
 }
