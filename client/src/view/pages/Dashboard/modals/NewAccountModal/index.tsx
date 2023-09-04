@@ -1,4 +1,4 @@
-import { CurrencyInput, Input, Modal, Select } from 'view/components';
+import { ColorsDropdown, CurrencyInput, Input, Modal, Select } from 'view/components';
 import { useNewAccountModal } from './hooks/useNewAccountModal';
 
 export function NewAccountModal() {
@@ -26,6 +26,7 @@ export function NewAccountModal() {
               { value: 'CHECKING', label: 'Checking' },
             ]}
           />
+          <ColorsDropdown />
         </div>
       </form>
     </Modal>
