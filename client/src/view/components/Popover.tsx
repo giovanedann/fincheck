@@ -34,7 +34,7 @@ function Content({ children, className, side = 'bottom' }: ContentProps) {
         side={side}
         className={
           cn(
-            'z-[70] p-2 rounded-2xl bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]',
+            'z-[70] p-4 rounded-2xl bg-white space-y-2 shadow-[0px_11px_20px_0px_rgba(0,0,0,0.10)]',
             className,
             side === 'top' && 'data-[side=top]:animate-slide-down-and-fade',
             side === 'right' && 'data-[side=right]:animate-slide-left-and-fade',
