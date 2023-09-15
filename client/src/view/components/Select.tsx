@@ -13,15 +13,18 @@ type SelectProps = {
   className?: string;
   error?: string;
   placeholder?: string;
-  options: SelectOption[]
+  options: SelectOption[];
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-export function Select({ className, error, placeholder, options }: SelectProps) {
-  const [selectedValue, setSelectedValue] = useState('');
+export function Select({ className, error, placeholder, options, onChange, value }: SelectProps) {
+  const [selectedValue, setSelectedValue] = useState(value);
 
   const handleSelect = useCallback((value: string) => {
     setSelectedValue(value)
-  }, [])
+    onChange?.(value)
+  }, [onChange])
 
   return (
     <div>
@@ -37,7 +40,7 @@ export function Select({ className, error, placeholder, options }: SelectProps) 
           {placeholder}
         </label>
 
-        <RdxSelect.Root onValueChange={handleSelect}>
+        <RdxSelect.Root onValueChange={handleSelect} value={value}>
           <RdxSelect.Trigger
             className={
               cn(
