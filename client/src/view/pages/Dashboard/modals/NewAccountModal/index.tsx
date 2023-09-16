@@ -4,12 +4,13 @@ import { Controller } from 'react-hook-form';
 
 export function NewAccountModal() {
   const {
-    closeNewAccountModal,
+    isLoading,
     isNewAccountModalOpen,
     errors,
-    handleSubmit,
     control,
-    register
+    handleSubmit,
+    closeNewAccountModal,
+    register,
   } = useNewAccountModal()
 
   return (
@@ -75,7 +76,7 @@ export function NewAccountModal() {
 
         </div>
 
-        <Button type="submit" className="mt-4 w-full">
+        <Button type="submit" className="mt-4 w-full" isLoading={isLoading}>
           Create
         </Button>
       </form>
