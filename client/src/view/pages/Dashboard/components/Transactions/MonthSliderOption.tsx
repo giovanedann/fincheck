@@ -1,5 +1,5 @@
 import { MONTHS } from 'app/config/constants';
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 import { useSwiper } from 'swiper/react';
 
 type MonthSliderOptionsProps = {

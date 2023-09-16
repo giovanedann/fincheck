@@ -1,6 +1,6 @@
 import { IUserService, MeResponse } from 'app/domain/services/UserService';
 import { httpClient } from 'app/infra/api/httpClient';
-import { sleep } from 'app/utils/sleep';
+import { sleep } from 'app/utils';
 
 class UserService implements IUserService {
   private readonly client = httpClient;

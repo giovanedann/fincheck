@@ -1,5 +1,5 @@
-import { cn } from 'app/utils/cn';
-import { formatCurrency } from 'app/utils/formatCurrency';
+import { cn } from 'app/utils';
+import { formatCurrency } from 'app/utils';
 
 import { BankAccountTypeIcon } from 'view/icons';
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';

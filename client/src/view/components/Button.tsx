@@ -1,5 +1,5 @@
 import { ComponentProps } from 'react'
-import { cn } from 'app/utils/cn'
+import { cn } from 'app/utils'
 import { Spinner } from './Spinner';
 
 type ButtonProps = ComponentProps<'button'> & {

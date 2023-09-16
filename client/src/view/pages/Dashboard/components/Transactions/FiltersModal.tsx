@@ -1,7 +1,7 @@
 import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons';
 import { Button, Modal } from 'view/components';
 import { useFiltersModal } from './hooks/useFiltersModal';
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 
 type FiltersModalProps = {
   open: boolean;

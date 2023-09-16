@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import * as RdxSelect from '@radix-ui/react-select';
 import { ChevronDownIcon, ChevronUpIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 
 type SelectOption = {
   value: string;

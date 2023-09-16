@@ -1,6 +1,6 @@
 import { IAuthService, SignInParams, SignInResponse, SignUpParams, SignUpResponse } from 'app/domain/services/AuthService';
 import { httpClient } from 'app/infra/api/httpClient';
-import { sleep } from 'app/utils/sleep';
+import { sleep } from 'app/utils';
 
 class AuthService implements IAuthService {
   private readonly client = httpClient;

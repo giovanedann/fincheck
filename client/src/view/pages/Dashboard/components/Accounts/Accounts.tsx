@@ -2,12 +2,12 @@ import { SwiperSlide, Swiper } from 'swiper/react';
 import 'swiper/css'
 
 import { useWindowWidth } from 'app/hooks/useWindowWidth';
-import { formatCurrency } from 'app/utils/formatCurrency';
+import { formatCurrency } from 'app/utils';
 
 import { EyeIcon } from 'view/icons';
 import { useAccounts } from './hooks/useAccounts';
 import { AccountCard, AccountsSliderNavigation } from '.';
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 import { Spinner } from 'view/components';
 import { PlusIcon } from '@radix-ui/react-icons';
 

@@ -1,8 +1,8 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons';
 import { useCallback, useState } from 'react';
 
-import { cn } from 'app/utils/cn';
-import { formatDate } from 'app/utils/formatDate';
+import { cn } from 'app/utils';
+import { formatDate } from 'app/utils';
 import { DatePicker, Popover } from '.';
 
 type DateInputProps = {

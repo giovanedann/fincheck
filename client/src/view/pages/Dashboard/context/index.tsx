@@ -19,7 +19,7 @@ export const DashboardContext = createContext({} as DashboardContextValues)
 export function DashboardProvider({ children }: { children: ReactNode }) {
   const [areValuesVisible, setAreValuesVisible] = useState<boolean>(false)
   const [isNewAccountModalOpen, setIsNewAccountModalOpen] = useState<boolean>(false)
-  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState<boolean>(true)
+  const [isNewTransactionModalOpen, setIsNewTransactionModalOpen] = useState<boolean>(false)
   const [newTransactionType, setNewTransactionType] = useState<'INCOME' | 'EXPENSE' | null>(null)
 
   useEffect(() => {

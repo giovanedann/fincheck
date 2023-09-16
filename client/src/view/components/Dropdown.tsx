@@ -1,5 +1,5 @@
 import * as RdxDropdown from '@radix-ui/react-dropdown-menu'
-import { cn } from 'app/utils/cn'
+import { cn } from 'app/utils'
 import { ReactNode } from 'react'
 
 type DropdownComponentsBaseProps = {

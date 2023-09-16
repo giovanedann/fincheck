@@ -2,7 +2,7 @@ import axios from 'axios'
 import { env } from 'app/config/env'
 import LocalStorage from 'app/infra/cache/LocalStorage'
 import { localStorageKeys } from 'app/config/localStorageKeys'
-import { sleep } from 'app/utils/sleep'
+import { sleep } from 'app/utils'
 
 export const httpClient = axios.create({
   baseURL: env.apiBaseUrl,

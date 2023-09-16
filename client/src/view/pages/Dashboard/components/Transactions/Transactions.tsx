@@ -1,8 +1,8 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { MONTHS } from 'app/config/constants';
-import { formatCurrency } from 'app/utils/formatCurrency';
-import { cn } from 'app/utils/cn';
+import { formatCurrency } from 'app/utils';
+import { cn } from 'app/utils';
 
 import { CategoryIcon, FilterIcon } from 'view/icons';
 import { MonthSliderOption, MonthSliderNavigation, TransactionTypeDropdown, FiltersModal } from '.';

@@ -2,7 +2,7 @@ import { ChevronDownIcon, CrossCircledIcon } from '@radix-ui/react-icons';
 
 import { Dropdown } from '.';
 
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 import { ColorIcon } from 'view/icons';
 import { useState } from 'react';
 
@@ -31,13 +31,20 @@ const colors: Color[] = [
 type ColorsDropdownProps = {
   error?: string;
   className?: string;
+  value?: string;
+  onChange?: (value: string) => void;
 }
 
-export function ColorsDropdown({ className, error }: ColorsDropdownProps) {
-  const [selectedColor, setSelectedColor] = useState<Color | null>(null)
+export function ColorsDropdown({ className, error, onChange, value }: ColorsDropdownProps) {
+  const [selectedColor, setSelectedColor] = useState<Color | null>(() => {
+    if (!value) return null
+
+    return colors.find(({ color }) => color === value) ?? null
+  })
 
   function handleSelect(color: Color) {
     setSelectedColor(color)
+    onChange?.(color.color)
   }
 
   return (
