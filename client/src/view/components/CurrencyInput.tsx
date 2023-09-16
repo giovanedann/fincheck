@@ -1,5 +1,5 @@
 import { CrossCircledIcon } from '@radix-ui/react-icons';
-import { cn } from 'app/utils/cn';
+import { cn } from 'app/utils';
 import { NumericFormat } from 'react-number-format';
 
 type CurrencyInputProps = {
@@ -12,16 +12,16 @@ export function CurrencyInput({ error, onChange, value }: CurrencyInputProps) {
   return (
     <div>
       <NumericFormat
+        thousandSeparator=","
+        decimalSeparator="."
+        value={value}
+        onChange={event => onChange?.(event.target.value)}
         className={
           cn(
-            'w-full text-gray-900 text-[2rem] font-bold tracking-[-1px] outline-none',
+            'w-full text-gray-800 text-[2rem] font-bold tracking-[-1px] outline-none',
             error && 'text-red-900'
           )
         }
-        value={value}
-        thousandSeparator="."
-        decimalSeparator=","
-        onChange={event => onChange?.(event.target.value)}
       />
 
       {error && (
