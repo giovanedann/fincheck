@@ -1,7 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 import { z } from 'zod';
+
+import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
+import { swapCommasAndDots } from 'app/utils';
 
 const schema = z.object({
   initialBalance: z.string().nonempty('Balance is required'),
@@ -19,12 +21,14 @@ export function useNewAccountModal() {
     register,
     handleSubmit: hookFormSubmit,
     formState: { errors },
-    control
+    control,
   } = useForm<NewAccountFormData>({
-    resolver: zodResolver(schema)
+    resolver: zodResolver(schema),
   })
 
   const handleSubmit = hookFormSubmit(async (data) => {
+    data.initialBalance = swapCommasAndDots(data.initialBalance)
+
     console.log({ data })
   })
 
