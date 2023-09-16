@@ -1,4 +1,4 @@
-import { CurrencyInput, Input, Modal, Select } from 'view/components';
+import { Button, CurrencyInput, Input, Modal, Select } from 'view/components';
 import { useNewTransactionModal } from './hooks/useNewTransactionModal';
 import { DateInput } from 'view/components/DateInput';
 
@@ -56,6 +56,10 @@ export function NewTransactionModal() {
 
           <DateInput />
         </div>
+
+        <Button type="submit" className="mt-4 w-full">
+          Create
+        </Button>
       </form>
     </Modal>
   )
