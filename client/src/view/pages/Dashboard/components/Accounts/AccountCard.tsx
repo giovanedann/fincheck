@@ -1,3 +1,4 @@
+import { BankAccountType } from 'app/domain/@shared/BankAccountType';
 import { cn } from 'app/utils';
 import { formatCurrency } from 'app/utils';
 
@@ -8,7 +9,7 @@ type AccountCardProps = {
   color: string;
   name: string;
   balance: number;
-  type: 'CASH' | 'CHECKING' | 'INVESTMENT'
+  type: BankAccountType
 }
 
 export function AccountCard({ balance, color, name, type }: AccountCardProps) {
