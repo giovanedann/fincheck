@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import BankAccountService from 'app/data/services/BankAccountService';
 import { CreateBankAccountParams } from 'app/domain/services/BankAccountService';
@@ -25,9 +25,12 @@ export function useNewAccountModal() {
     handleSubmit: hookFormSubmit,
     formState: { errors },
     control,
+    reset
   } = useForm<NewAccountFormData>({
     resolver: zodResolver(schema),
   })
+
+  const queryClient = useQueryClient();
 
   const {
     isLoading,
@@ -49,8 +52,18 @@ export function useNewAccountModal() {
     try {
       await mutateAsync(createAccountParams)
 
+      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
+
       toast.success('Account created with success!')
+
       closeNewAccountModal()
+
+      reset({
+        color: '',
+        initialBalance: '',
+        name: '',
+        type: 'CHECKING'
+      })
     } catch {
       toast.error('Error creating a new account!')
     }
