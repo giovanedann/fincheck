@@ -8,6 +8,7 @@ import UserService from 'app/data/services/UserService';
 
 import { Splash } from 'view/components';
 import { MeResponse } from 'app/domain/services/UserService';
+import { QUERY_KEYS } from 'app/config/queryKeys';
 
 type AuthContextValues = {
   signedIn: boolean;
@@ -30,7 +31,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   })
 
   const { isError, isSuccess, isFetching, remove, data } = useQuery({
-    queryKey: ['users', 'me'],
+    queryKey: [QUERY_KEYS.users, QUERY_KEYS.me],
     queryFn: () => UserService.me(),
     enabled: signedIn,
     staleTime: Infinity

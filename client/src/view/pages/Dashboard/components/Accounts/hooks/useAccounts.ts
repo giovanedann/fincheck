@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import BankAccountService from 'app/data/services/BankAccountService'
 
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard'
+import { QUERY_KEYS } from 'app/config/queryKeys'
 
 export function useAccounts() {
   const [sliderState, setSliderState] = useState({
@@ -18,7 +19,7 @@ export function useAccounts() {
   } = useDashboard()
 
   const { data, isFetching } = useQuery({
-    queryKey: ['bankAccounts'],
+    queryKey: [QUERY_KEYS.bankAccounts],
     queryFn: () => BankAccountService.get(),
   })
 

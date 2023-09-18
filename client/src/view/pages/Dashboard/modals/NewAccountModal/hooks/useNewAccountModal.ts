@@ -7,6 +7,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import BankAccountService from 'app/data/services/BankAccountService';
 import { CreateBankAccountParams } from 'app/domain/services/BankAccountService';
+import { QUERY_KEYS } from 'app/config/queryKeys';
 
 const schema = z.object({
   initialBalance: z.string().nonempty('Balance is required'),
@@ -52,7 +53,7 @@ export function useNewAccountModal() {
     try {
       await mutateAsync(createAccountParams)
 
-      queryClient.invalidateQueries({ queryKey: ['bankAccounts'] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
 
       toast.success('Account created with success!')
 
