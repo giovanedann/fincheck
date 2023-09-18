@@ -21,7 +21,7 @@ export function Accounts() {
     toggleValuesVisibility,
     isLoading,
     accounts,
-    openNewAccountModal
+    openNewAccountModal,
   } = useAccounts()
 
   return (
@@ -102,17 +102,16 @@ export function Accounts() {
                     />
                   </div>
 
-                  <SwiperSlide>
-                    <AccountCard color="#7950f2" balance={1202.56} name="Nubank" type="CHECKING" />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <AccountCard color="#000" balance={1440.56} name="XP Investimentos" type="CASH" />
-                  </SwiperSlide>
-
-                  <SwiperSlide>
-                    <AccountCard color="#f81b13" balance={2503.56} name="Santander" type="INVESTMENT" />
-                  </SwiperSlide>
+                  {accounts.map((account) => (
+                    <SwiperSlide key={account.id}>
+                      <AccountCard
+                        color={account.color}
+                        balance={account.currentBalance}
+                        name={account.name}
+                        type={account.type}
+                      />
+                    </SwiperSlide>
+                  ))}
                 </Swiper>
               </div>
             )}
