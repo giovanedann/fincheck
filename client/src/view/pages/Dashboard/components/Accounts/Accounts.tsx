@@ -22,6 +22,7 @@ export function Accounts() {
     isLoading,
     accounts,
     openNewAccountModal,
+    currentBalance
   } = useAccounts()
 
   return (
@@ -46,7 +47,7 @@ export function Accounts() {
                   !areValuesVisible && 'blur-md'
                 )}
               >
-                {formatCurrency(10345.95)}
+                {formatCurrency(currentBalance)}
               </strong>
 
               <button className="w-8 h-8 flex items-center justify-center" onClick={toggleValuesVisibility}>

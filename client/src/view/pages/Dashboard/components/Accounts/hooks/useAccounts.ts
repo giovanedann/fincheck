@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 
 import BankAccountService from 'app/data/services/BankAccountService'
@@ -18,18 +18,23 @@ export function useAccounts() {
     openNewAccountModal
   } = useDashboard()
 
-  const { data, isFetching } = useQuery({
+  const { data = [], isFetching } = useQuery({
     queryKey: [QUERY_KEYS.bankAccounts],
     queryFn: () => BankAccountService.get(),
   })
 
+  const currentBalance = useMemo(() => {
+    return data.reduce((total, account) => total + account.currentBalance, 0)
+  }, [data])
+
   return {
     sliderState,
-    setSliderState,
     areValuesVisible,
-    toggleValuesVisibility,
     isLoading: isFetching,
-    accounts: data ?? [],
+    accounts: data,
+    currentBalance,
+    setSliderState,
+    toggleValuesVisibility,
     openNewAccountModal
   }
 }
