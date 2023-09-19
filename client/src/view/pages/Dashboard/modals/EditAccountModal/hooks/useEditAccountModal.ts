@@ -33,7 +33,6 @@ export function useEditAccountModal() {
     handleSubmit: hookFormSubmit,
     formState: { errors },
     control,
-    reset
   } = useForm<EditAccountFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -51,7 +50,10 @@ export function useEditAccountModal() {
     mutateAsync
   } = useMutation({
     mutationFn: async (data: CreateBankAccountParams) => {
-      return BankAccountService.create(data)
+      return BankAccountService.update({
+        id: accountBeingEdited!.id,
+        ...data,
+      })
     }
   })
 
@@ -64,28 +66,21 @@ export function useEditAccountModal() {
       numberFormatInitialBalance = data.initialBalance
     }
 
-    const createAccountParams = {
+    const updateAccountParams = {
       ...data,
       initialBalance: numberFormatInitialBalance
     }
 
     try {
-      await mutateAsync(createAccountParams)
+      await mutateAsync(updateAccountParams)
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
 
-      toast.success('Account created with success!')
+      toast.success('Account updated with success!')
 
       closeEditAccountModal()
-
-      reset({
-        color: '',
-        initialBalance: '',
-        name: '',
-        type: 'CHECKING'
-      })
     } catch {
-      toast.error('Error creating a new account!')
+      toast.error('Error updating the account!')
     }
   })
 
