@@ -1,4 +1,5 @@
 import { BankAccountType } from 'app/domain/@shared/BankAccountType';
+import { BankAccount } from 'app/domain/entities/BankAccount';
 
 export interface IBankAccountService {
   create: (params: CreateBankAccountParams) => Promise<void>
@@ -12,13 +13,6 @@ export type CreateBankAccountParams = {
   type: BankAccountType;
 }
 
-export type GetBankAccountsResponse = Array<{
-  id: string,
-  name: string,
-  initialBalance: number,
-  type: BankAccountType,
-  color: string,
-  currentBalance: number
-}>
+export type GetBankAccountsResponse = Array<BankAccount>
 
 
