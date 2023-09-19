@@ -15,14 +15,14 @@ export function Accounts() {
   const windowWidth = useWindowWidth()
 
   const {
-    setSliderState,
     sliderState,
     areValuesVisible,
-    toggleValuesVisibility,
     isLoading,
     accounts,
+    currentBalance,
+    setSliderState,
+    toggleValuesVisibility,
     openNewAccountModal,
-    currentBalance
   } = useAccounts()
 
   return (
@@ -106,10 +106,7 @@ export function Accounts() {
                   {accounts.map((account) => (
                     <SwiperSlide key={account.id}>
                       <AccountCard
-                        color={account.color}
-                        balance={account.currentBalance}
-                        name={account.name}
-                        type={account.type}
+                        bankAccountData={account}
                       />
                     </SwiperSlide>
                   ))}

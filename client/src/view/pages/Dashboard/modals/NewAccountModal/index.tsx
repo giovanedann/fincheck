@@ -24,6 +24,7 @@ export function NewAccountModal() {
             <Controller
               control={control}
               name="initialBalance"
+              defaultValue="0"
               render={({ field }) => (
                 <CurrencyInput
                   error={errors.initialBalance?.message}

@@ -15,7 +15,8 @@ export function useAccounts() {
   const {
     areValuesVisible,
     toggleValuesVisibility,
-    openNewAccountModal
+    openNewAccountModal,
+    openEditAccountModal
   } = useDashboard()
 
   const { data = [], isFetching } = useQuery({
@@ -34,6 +35,7 @@ export function useAccounts() {
     accounts: data,
     currentBalance,
     setSliderState,
+    openEditAccountModal,
     toggleValuesVisibility,
     openNewAccountModal
   }
