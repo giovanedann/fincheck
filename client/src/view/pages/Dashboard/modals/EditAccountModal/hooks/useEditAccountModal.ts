@@ -6,8 +6,9 @@ import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import BankAccountService from 'app/data/services/BankAccountService';
-import { CreateBankAccountParams } from 'app/domain/services/BankAccountService';
+import { CreateBankAccountParams, DeleteBankAccountParams } from 'app/domain/services/BankAccountService';
 import { QUERY_KEYS } from 'app/config/queryKeys';
+import { useState } from 'react';
 
 const schema = z.object({
   initialBalance: z.union([
@@ -22,6 +23,8 @@ const schema = z.object({
 export type EditAccountFormData = z.infer<typeof schema>;
 
 export function useEditAccountModal() {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+
   const {
     closeEditAccountModal,
     isEditAccountModalOpen,
@@ -45,15 +48,18 @@ export function useEditAccountModal() {
 
   const queryClient = useQueryClient();
 
-  const {
-    isLoading,
-    mutateAsync
-  } = useMutation({
+  const updateMutation = useMutation({
     mutationFn: async (data: CreateBankAccountParams) => {
       return BankAccountService.update({
         id: accountBeingEdited!.id,
         ...data,
       })
+    }
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: async (data: DeleteBankAccountParams) => {
+      return BankAccountService.delete(data)
     }
   })
 
@@ -72,7 +78,7 @@ export function useEditAccountModal() {
     }
 
     try {
-      await mutateAsync(updateAccountParams)
+      await updateMutation.mutateAsync(updateAccountParams)
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
 
@@ -84,12 +90,37 @@ export function useEditAccountModal() {
     }
   })
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true)
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false)
+  }
+
+  async function handleDeleteAccount() {
+    try {
+      await deleteMutation.mutateAsync({ id: accountBeingEdited!.id })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
+      toast.success('Account deleted with success!')
+    } catch {
+      toast.error('Error deleting the account')
+    } finally {
+      handleCloseDeleteModal()
+      closeEditAccountModal()
+    }
+  }
+
   return {
-    isLoading,
+    isLoading: updateMutation.isLoading,
     isEditAccountModalOpen,
+    isDeleteModalOpen,
     errors,
     control,
     closeEditAccountModal,
+    handleOpenDeleteModal,
+    handleDeleteAccount,
+    handleCloseDeleteModal,
     register,
     handleSubmit,
   }
