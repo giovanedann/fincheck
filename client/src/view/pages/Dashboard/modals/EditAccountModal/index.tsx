@@ -10,6 +10,7 @@ export function EditAccountModal() {
     errors,
     isDeleteModalOpen,
     control,
+    isDeleting,
     handleSubmit,
     closeEditAccountModal,
     handleCloseDeleteModal,
@@ -21,6 +22,7 @@ export function EditAccountModal() {
   if (isDeleteModalOpen) {
     return (
       <ConfirmDeleteModal
+        isLoading={isDeleting}
         onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteAccount}
         title="Are you sure? This action cannot be undone!"

@@ -113,6 +113,7 @@ export function useEditAccountModal() {
 
   return {
     isLoading: updateMutation.isLoading,
+    isDeleting: deleteMutation.isLoading,
     isEditAccountModalOpen,
     isDeleteModalOpen,
     errors,
