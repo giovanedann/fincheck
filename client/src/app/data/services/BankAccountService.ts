@@ -1,4 +1,4 @@
-import { GetBankAccountsResponse, CreateBankAccountParams, IBankAccountService, UpdateBankAccountParams } from 'app/domain/services/BankAccountService';
+import { GetBankAccountsResponse, CreateBankAccountParams, IBankAccountService, UpdateBankAccountParams, DeleteBankAccountParams } from 'app/domain/services/BankAccountService';
 import { httpClient } from 'app/infra/api/httpClient';
 
 class BankAccountService implements IBankAccountService {
@@ -20,6 +20,10 @@ class BankAccountService implements IBankAccountService {
     const { data } = await this.client.put(`/bank-accounts/${params.id}`, params);
 
     return data;
+  }
+
+  async delete(params: DeleteBankAccountParams) {
+    await this.client.delete(`/bank-accounts/${params.id}`);
   }
 }
 
