@@ -36,7 +36,7 @@ export function Modal({ className, children, open, title, rightAction, onClose }
           }
         >
           <header className="h-12 flex items-center justify-between text-gray-800">
-            <button className="h-12 w-12 flex items-center outline-none" onClick={onClose}>
+            <button className="h-12 w-12 flex items-center justify-center outline-none" onClick={onClose}>
               <Cross2Icon className="w-6 h-6" />
             </button>
 
@@ -44,7 +44,7 @@ export function Modal({ className, children, open, title, rightAction, onClose }
               {title}
             </span>
 
-            <button className="h-12 w-12 flex items-center">
+            <button className="h-12 w-12 flex items-center justify-center outline-none">
               {rightAction}
             </button>
           </header>
