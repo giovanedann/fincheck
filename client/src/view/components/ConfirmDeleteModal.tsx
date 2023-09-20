@@ -3,11 +3,12 @@ import { Button, Modal } from '.';
 
 type ConfirmDeleteModalProps = {
   onClose: () => void
+  onConfirm: () => void;
   title?: string
   description?: string
 }
 
-export function ConfirmDeleteModal({ onClose, title, description }: ConfirmDeleteModalProps) {
+export function ConfirmDeleteModal({ onClose, title, description, onConfirm }: ConfirmDeleteModalProps) {
   return (
     <Modal open onClose={onClose} title="Delete">
       <div className="flex flex-col items-center text-center gap-6">
@@ -27,7 +28,7 @@ export function ConfirmDeleteModal({ onClose, title, description }: ConfirmDelet
       </div>
 
       <div className="mt-10 space-y-4">
-        <Button className="w-full bg-red-900 hover:bg-red-800">
+        <Button className="w-full bg-red-900 hover:bg-red-800" onClick={onConfirm}>
           Confirm
         </Button>
         <Button
