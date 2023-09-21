@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 import { useBankAccounts } from 'app/hooks/useBankAccounts';
 import { useCategories } from 'app/hooks/useCategories';
+import { useMemo } from 'react';
 
 const schema = z.object({
   value: z.string().nonempty('Transaction value is required'),
@@ -37,6 +38,11 @@ export function useNewTransactionModal() {
   const { accounts } = useBankAccounts()
   const { categories } = useCategories()
 
+  const filteredCategories = useMemo(
+    () => categories.filter((category) => category.type === newTransactionType),
+    [categories, newTransactionType]
+  )
+
   return {
     closeNewTransactionModal,
     handleSubmit,
@@ -44,7 +50,7 @@ export function useNewTransactionModal() {
     isNewTransactionModalOpen,
     newTransactionType,
     accounts,
-    categories,
+    categories: filteredCategories,
     errors,
     control
   }
