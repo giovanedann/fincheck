@@ -5,11 +5,12 @@ import { Controller } from 'react-hook-form';
 
 export function NewTransactionModal() {
   const {
-    closeNewTransactionModal,
     isNewTransactionModalOpen,
     newTransactionType,
     control,
     errors,
+    accounts,
+    closeNewTransactionModal,
     handleSubmit,
     register
   } = useNewTransactionModal()
@@ -77,11 +78,10 @@ export function NewTransactionModal() {
             render={({ field }) => (
               <Select
                 placeholder={isExpense ? 'Pay with' : 'Receive with'}
-                options={[
-                  { value: 'INVESTMENT', label: 'Investment' },
-                  { value: 'CASH', label: 'Cash' },
-                  { value: 'CHECKING', label: 'Checking' },
-                ]}
+                options={accounts.map(account => ({
+                  label: account.name,
+                  value: account.id,
+                }))}
                 error={errors.bankAccountId?.message}
                 value={field.value}
                 onChange={field.onChange}

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
+import { useBankAccounts } from 'app/hooks/useBankAccounts';
 
 const schema = z.object({
   value: z.string().nonempty('Transaction value is required'),
@@ -32,12 +33,15 @@ export function useNewTransactionModal() {
     reset()
   })
 
+  const { accounts } = useBankAccounts()
+
   return {
     closeNewTransactionModal,
-    isNewTransactionModalOpen,
-    newTransactionType,
     handleSubmit,
     register,
+    isNewTransactionModalOpen,
+    newTransactionType,
+    accounts,
     errors,
     control
   }
