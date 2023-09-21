@@ -92,8 +92,10 @@ export function NewTransactionModal() {
           <Controller
             control={control}
             name="date"
+            defaultValue={new Date()}
             render={({ field }) => (
               <DateInput
+                error={errors.date?.message}
                 value={field.value}
                 onChange={field.onChange}
               />
