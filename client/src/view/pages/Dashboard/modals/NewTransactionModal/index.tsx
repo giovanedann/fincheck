@@ -2,6 +2,7 @@ import { Button, CurrencyInput, Input, Modal, Select } from 'view/components';
 import { useNewTransactionModal } from './hooks/useNewTransactionModal';
 import { DateInput } from 'view/components/DateInput';
 import { Controller } from 'react-hook-form';
+import { useMemo } from 'react';
 
 export function NewTransactionModal() {
   const {
@@ -9,6 +10,7 @@ export function NewTransactionModal() {
     newTransactionType,
     control,
     errors,
+    categories,
     accounts,
     closeNewTransactionModal,
     handleSubmit,
@@ -16,6 +18,12 @@ export function NewTransactionModal() {
   } = useNewTransactionModal()
 
   const isExpense = newTransactionType === 'EXPENSE';
+
+  const filteredCategories = useMemo(() => {
+    if (isExpense) return categories.filter((category) => category.type === 'EXPENSE')
+
+    return categories.filter((category) => category.type === 'INCOME')
+  }, [categories, isExpense])
 
   return (
     <Modal
@@ -60,11 +68,10 @@ export function NewTransactionModal() {
             render={({ field }) => (
               <Select
                 placeholder="Category"
-                options={[
-                  { value: 'INVESTMENT', label: 'Investment' },
-                  { value: 'CASH', label: 'Cash' },
-                  { value: 'CHECKING', label: 'Checking' },
-                ]}
+                options={filteredCategories.map(category => ({
+                  label: category.name,
+                  value: category.id
+                }))}
                 error={errors.categoryId?.message}
                 value={field.value}
                 onChange={field.onChange}
