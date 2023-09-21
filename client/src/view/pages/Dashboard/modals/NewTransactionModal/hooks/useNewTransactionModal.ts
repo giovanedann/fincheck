@@ -1,15 +1,17 @@
+import { useMemo } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
+import toast from 'react-hot-toast';
 
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
+
 import { useBankAccounts } from 'app/hooks/useBankAccounts';
 import { useCategories } from 'app/hooks/useCategories';
-import { useMemo } from 'react';
-import { useMutation } from '@tanstack/react-query';
 import { CreateTransactionParams } from 'app/domain/services/TransactionService';
 import TransactionService from 'app/data/services/TransactionService';
-import toast from 'react-hot-toast';
+import { QUERY_KEYS } from 'app/config/queryKeys';
 
 const schema = z.object({
   value: z.string().nonempty('Transaction value is required'),
@@ -23,6 +25,8 @@ type NewTransactionFormData = z.infer<typeof schema>;
 
 export function useNewTransactionModal() {
   const { closeNewTransactionModal, isNewTransactionModalOpen, newTransactionType } = useDashboard()
+
+  const queryClient = useQueryClient()
 
   const {
     register,
@@ -66,6 +70,9 @@ export function useNewTransactionModal() {
 
       closeNewTransactionModal()
       toast.success('Transaction created with success!')
+
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
+
       reset({
         categoryId: '',
         bankAccountId: '',
