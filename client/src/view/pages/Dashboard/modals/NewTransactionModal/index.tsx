@@ -11,6 +11,7 @@ export function NewTransactionModal() {
     errors,
     categories,
     accounts,
+    isLoading,
     closeNewTransactionModal,
     handleSubmit,
     register
@@ -105,7 +106,7 @@ export function NewTransactionModal() {
 
         </div>
 
-        <Button type="submit" className="mt-4 w-full">
+        <Button type="submit" className="mt-4 w-full" isLoading={isLoading}>
           Create
         </Button>
       </form>
