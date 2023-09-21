@@ -69,7 +69,11 @@ export function useNewTransactionModal() {
       await mutateAsync(params)
 
       closeNewTransactionModal()
-      toast.success('Transaction created with success!')
+      const toastMessage = newTransactionType === 'EXPENSE'
+        ? 'Expense created with success!'
+        : 'Income created with success!'
+
+      toast.success(toastMessage)
 
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
 
@@ -81,7 +85,11 @@ export function useNewTransactionModal() {
         value: ''
       })
     } catch {
-      toast.error('Error creating a new transaction!')
+      const toastMessage = newTransactionType === 'EXPENSE'
+        ? 'Error creating a new expense!'
+        : 'Error creating a new income!'
+
+      toast.error(toastMessage)
     }
   })
 
