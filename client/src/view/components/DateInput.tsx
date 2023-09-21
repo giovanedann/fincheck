@@ -8,14 +8,17 @@ import { DatePicker, Popover } from '.';
 type DateInputProps = {
   error?: string;
   className?: string;
+  value?: Date;
+  onChange?: (date: Date) => void
 }
 
-export function DateInput({ className, error }: DateInputProps) {
-  const [date, setDate] = useState<Date>(new Date())
+export function DateInput({ className, error, value, onChange }: DateInputProps) {
+  const [date, setDate] = useState<Date>(value ?? new Date())
 
   const handleDateChange = useCallback((date: Date) => {
     setDate(date)
-  }, [])
+    onChange?.(date)
+  }, [onChange])
 
   return (
     <div>
