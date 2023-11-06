@@ -1,14 +1,15 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { MONTHS } from 'app/config/constants';
-import { formatCurrency } from 'app/utils';
+import { formatCurrency, formatDate } from 'app/utils';
 import { cn } from 'app/utils';
 
 import { CategoryIcon, FilterIcon } from 'view/icons';
 import { MonthSliderOption, MonthSliderNavigation, TransactionTypeDropdown, FiltersModal } from '.';
-import { useTransactions } from './hooks/useTransactions';
 import { Spinner } from 'view/components';
 import emptyStateImage from 'assets/images/empty-state.svg'
+
+import { useDashboardTransactions } from './hooks/useDashboardTransactions';
 
 export function Transactions() {
   const {
@@ -19,7 +20,7 @@ export function Transactions() {
     isFiltersModalOpen,
     handleCloseFiltersModal,
     handleOpenFiltersModal
-  } = useTransactions()
+  } = useDashboardTransactions()
 
   const hasTransactions = transactions.length > 0
 
@@ -76,24 +77,35 @@ export function Transactions() {
             )}
 
             {(hasTransactions && !isLoading) && (
-              new Array(7).fill(null).map(() => (
-                <div key={Math.random()} className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
+              transactions.map((transaction) => (
+                <div key={transaction.id} className="bg-white p-4 rounded-2xl flex items-center justify-between gap-4">
                   <div className="flex-1 flex items-center gap-3">
-                    <CategoryIcon type="expense" />
+                    <CategoryIcon
+                      type={transaction.type === 'EXPENSE' ? 'expense' : 'income'}
+                      category={transaction.category?.icon}
+                    />
 
                     <div>
-                      <strong className="font-bold tracking-[-0.5px]">MC Donalds</strong>
-                      <span className="text-sm text-gray-600 block">04/05/2023</span>
+                      <strong className="font-bold tracking-[-0.5px]">
+                        {transaction.name}
+                      </strong>
+
+                      <span className="text-sm text-gray-600 block">
+                        {formatDate(new Date(transaction.date))}
+                      </span>
                     </div>
                   </div>
 
                   <span
                     className={cn(
-                      'text-red-800 tracking-[-0.5px] transition-all duration-300 ease-in-out',
-                      !areValuesVisible && 'blur-sm'
+                      'tracking-[-0.5px] transition-all duration-300 ease-in-out',
+                      !areValuesVisible && 'blur-sm',
+                      transaction.type === 'EXPENSE' ? 'text-red-800' : 'text-green-800'
+
                     )}
                   >
-                    - {formatCurrency(100.34)}
+                    {transaction.type === 'EXPENSE' ? '- ' : '+ '}
+                    {formatCurrency(transaction.value)}
                   </span>
                 </div>
               ))
