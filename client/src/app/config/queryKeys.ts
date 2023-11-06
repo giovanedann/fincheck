@@ -3,4 +3,5 @@ export const QUERY_KEYS = {
   me: 'me',
   bankAccounts: 'bankAccounts',
   categories: 'categories',
+  transactions: 'transactions',
 }

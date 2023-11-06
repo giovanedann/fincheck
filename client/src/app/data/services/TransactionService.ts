@@ -5,7 +5,7 @@ class TransactionService implements ITransactionService {
   private readonly client = httpClient;
 
   async get(params: GetTransactionsParams): Promise<GetTransactionsResponse> {
-    const { data } = await this.client.get<GetTransactionsResponse>('/categories', {
+    const { data } = await this.client.get<GetTransactionsResponse>('/transactions', {
       params: params.filters
     });
 
