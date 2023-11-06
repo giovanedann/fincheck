@@ -52,6 +52,15 @@ export class TransactionsService {
         },
         type: filters.transactionType,
       },
+      include: {
+        category: {
+          select: {
+            name: true,
+            id: true,
+            icon: true,
+          },
+        },
+      },
     });
   }
 
