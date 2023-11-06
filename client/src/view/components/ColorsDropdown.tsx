@@ -51,7 +51,7 @@ export function ColorsDropdown({ className, error, onChange, value }: ColorsDrop
     <div>
       <Dropdown.Root>
         <Dropdown.Trigger>
-          <button
+          <div
             className={
               cn(
                 'bg-white w-full rounded-lg border border-gray-500 focus:border-gray-800 px-3 h-[52px] text-gray-700 transition-all ease-in-out duration-300 outline-none text-left relative',
@@ -61,7 +61,6 @@ export function ColorsDropdown({ className, error, onChange, value }: ColorsDrop
             }
           >
             Color
-
             <div className="absolute right-3 top-1/2 -translate-y-1/2">
               {!selectedColor && (
                 <ChevronDownIcon className="h-6 w-6 text-gray-800" />
@@ -71,7 +70,7 @@ export function ColorsDropdown({ className, error, onChange, value }: ColorsDrop
                 <ColorIcon color={selectedColor.color} bg={selectedColor.bg} />
               )}
             </div>
-          </button>
+          </div>
         </Dropdown.Trigger>
 
         <Dropdown.Content className="grid grid-cols-4">
