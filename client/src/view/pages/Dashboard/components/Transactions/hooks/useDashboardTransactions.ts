@@ -1,8 +1,10 @@
+import { useTransactions } from 'app/hooks/useTransactions';
 import { useCallback, useState } from 'react';
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 
-export function useTransactions() {
+export function useDashboardTransactions() {
   const { areValuesVisible } = useDashboard()
+  const { transactions } = useTransactions()
 
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false)
 
@@ -18,7 +20,7 @@ export function useTransactions() {
     areValuesVisible,
     isInitialLoading: false,
     isLoading: false,
-    transactions: [1],
+    transactions,
     isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal
