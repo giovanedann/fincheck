@@ -17,9 +17,11 @@ export function Transactions() {
     isInitialLoading,
     transactions,
     isLoading,
+    filters,
     isFiltersModalOpen,
     handleCloseFiltersModal,
-    handleOpenFiltersModal
+    handleOpenFiltersModal,
+    handleChangeMonth
   } = useDashboardTransactions()
 
   const hasTransactions = transactions.length > 0
@@ -46,7 +48,14 @@ export function Transactions() {
             </div>
 
             <div className="mt-6 relative">
-              <Swiper slidesPerView={3} centeredSlides>
+              <Swiper
+                slidesPerView={3}
+                initialSlide={filters.month}
+                centeredSlides
+                onSlideChange={(swiper) => {
+                  handleChangeMonth(swiper.realIndex)
+                }}
+              >
                 <MonthSliderNavigation />
 
                 {MONTHS.map((month, index) => (

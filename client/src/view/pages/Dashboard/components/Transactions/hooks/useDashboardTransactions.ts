@@ -1,12 +1,30 @@
+import { GetTransactionsParams } from 'app/domain/services/TransactionService';
 import { useTransactions } from 'app/hooks/useTransactions';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 
 export function useDashboardTransactions() {
-  const { areValuesVisible } = useDashboard()
-  const { transactions, isLoading, isInitialLoading } = useTransactions()
-
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false)
+  const [filters, setFilters] = useState<GetTransactionsParams['filters']>(() => {
+    const today = new Date();
+
+    return {
+      month: today.getMonth(),
+      year: today.getFullYear()
+    }
+  })
+
+  const { areValuesVisible } = useDashboard()
+
+  const { transactions, isLoading, isInitialLoading, refetch } = useTransactions({ filters })
+
+  useEffect(() => {
+    refetch()
+  }, [filters, refetch])
+
+  const handleChangeMonth = useCallback((month: number) => {
+    setFilters(prev => ({ ...prev, month }))
+  }, [])
 
   const handleOpenFiltersModal = useCallback(() => {
     setIsFiltersModalOpen(true)
@@ -20,9 +38,11 @@ export function useDashboardTransactions() {
     areValuesVisible,
     isInitialLoading,
     isLoading,
+    filters,
     transactions,
     isFiltersModalOpen,
     handleOpenFiltersModal,
-    handleCloseFiltersModal
+    handleCloseFiltersModal,
+    handleChangeMonth
   }
 }
