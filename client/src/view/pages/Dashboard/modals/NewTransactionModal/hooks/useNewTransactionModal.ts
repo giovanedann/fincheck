@@ -75,6 +75,7 @@ export function useNewTransactionModal() {
 
       toast.success(toastMessage)
 
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.transactions] })
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
 
       reset({
