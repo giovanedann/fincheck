@@ -1,9 +1,9 @@
 import { Category } from 'app/domain/entities/Category'
 
 export interface ICategoryService {
-  get: () => Promise<GetCategorysResponse>
+  get: () => Promise<GetCategoriesResponse>
 }
 
-export type GetCategorysResponse = Array<Category>
+export type GetCategoriesResponse = Array<Category>
 
 
