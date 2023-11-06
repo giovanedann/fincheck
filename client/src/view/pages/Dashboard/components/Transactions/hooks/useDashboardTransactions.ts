@@ -4,7 +4,7 @@ import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 
 export function useDashboardTransactions() {
   const { areValuesVisible } = useDashboard()
-  const { transactions } = useTransactions()
+  const { transactions, isLoading, isInitialLoading } = useTransactions()
 
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false)
 
@@ -18,8 +18,8 @@ export function useDashboardTransactions() {
 
   return {
     areValuesVisible,
-    isInitialLoading: false,
-    isLoading: false,
+    isInitialLoading,
+    isLoading,
     transactions,
     isFiltersModalOpen,
     handleOpenFiltersModal,

@@ -3,12 +3,14 @@ import { QUERY_KEYS } from 'app/config/queryKeys';
 import TransactionService from 'app/data/services/TransactionService';
 
 export function useTransactions() {
-  const { data } = useQuery({
+  const { data, isFetching, isInitialLoading } = useQuery({
     queryKey: [QUERY_KEYS.transactions],
-    queryFn: () => TransactionService.get({ filters: { month: 8, year: 2023 } })
+    queryFn: () => TransactionService.get({ filters: { month: 10, year: 2023 } })
   })
 
   return {
     transactions: data ?? [],
+    isLoading: isFetching,
+    isInitialLoading
   }
 }
