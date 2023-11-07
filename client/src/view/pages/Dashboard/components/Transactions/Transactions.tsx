@@ -21,7 +21,7 @@ export function Transactions() {
     isFiltersModalOpen,
     handleCloseFiltersModal,
     handleOpenFiltersModal,
-    handleChangeMonth
+    handleChangeFilters
   } = useDashboardTransactions()
 
   const hasTransactions = transactions.length > 0
@@ -53,7 +53,7 @@ export function Transactions() {
                 initialSlide={filters.month}
                 centeredSlides
                 onSlideChange={(swiper) => {
-                  handleChangeMonth(swiper.realIndex)
+                  handleChangeFilters('month')(swiper.realIndex)
                 }}
               >
                 <MonthSliderNavigation />

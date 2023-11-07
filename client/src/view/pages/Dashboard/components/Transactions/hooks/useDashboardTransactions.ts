@@ -22,9 +22,15 @@ export function useDashboardTransactions() {
     refetch()
   }, [filters, refetch])
 
-  const handleChangeMonth = useCallback((month: number) => {
-    setFilters(prev => ({ ...prev, month }))
-  }, [])
+  function handleChangeFilters<T extends keyof GetTransactionsParams['filters']>(filter: T) {
+    return (value: GetTransactionsParams['filters'][T]) => {
+      if (value === filters[filter]) return;
+      setFilters(prev => ({
+        ...prev,
+        [filter]: value
+      }))
+    }
+  }
 
   const handleOpenFiltersModal = useCallback(() => {
     setIsFiltersModalOpen(true)
@@ -43,6 +49,6 @@ export function useDashboardTransactions() {
     isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
-    handleChangeMonth
+    handleChangeFilters
   }
 }
