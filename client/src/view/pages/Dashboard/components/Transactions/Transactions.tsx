@@ -36,7 +36,15 @@ export function Transactions() {
 
       {!isInitialLoading && (
         <>
-          <FiltersModal open={isFiltersModalOpen} onClose={handleCloseFiltersModal} />
+          <FiltersModal
+            open={isFiltersModalOpen}
+            onClose={handleCloseFiltersModal}
+            onApplyFilters={({ bankAccountId, year }) => {
+              handleChangeFilters('bankAccountId')(bankAccountId)
+              handleChangeFilters('year')(year)
+              handleCloseFiltersModal()
+            }}
+          />
 
           <header>
             <div className="flex items-center justify-between">
