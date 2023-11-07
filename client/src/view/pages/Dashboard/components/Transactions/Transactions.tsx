@@ -21,7 +21,8 @@ export function Transactions() {
     isFiltersModalOpen,
     handleCloseFiltersModal,
     handleOpenFiltersModal,
-    handleChangeFilters
+    handleChangeFilters,
+    handleApplyFiltersModal
   } = useDashboardTransactions()
 
   const hasTransactions = transactions.length > 0
@@ -39,11 +40,7 @@ export function Transactions() {
           <FiltersModal
             open={isFiltersModalOpen}
             onClose={handleCloseFiltersModal}
-            onApplyFilters={({ bankAccountId, year }) => {
-              handleChangeFilters('bankAccountId')(bankAccountId)
-              handleChangeFilters('year')(year)
-              handleCloseFiltersModal()
-            }}
+            onApplyFilters={handleApplyFiltersModal}
           />
 
           <header>

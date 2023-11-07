@@ -19,9 +19,14 @@ export function useDashboardTransactions() {
   const { transactions, isLoading, isInitialLoading, refetch } = useTransactions({ filters })
 
   useEffect(() => {
-    console.log({ filters })
     refetch()
   }, [filters, refetch])
+
+  function handleApplyFiltersModal(filters: { bankAccountId: string | undefined; year: number }) {
+    handleChangeFilters('bankAccountId')(filters.bankAccountId)
+    handleChangeFilters('year')(filters.year)
+    handleCloseFiltersModal()
+  }
 
   function handleChangeFilters<T extends keyof GetTransactionsParams['filters']>(filter: T) {
     return (value: GetTransactionsParams['filters'][T]) => {
@@ -50,6 +55,7 @@ export function useDashboardTransactions() {
     isFiltersModalOpen,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
-    handleChangeFilters
+    handleChangeFilters,
+    handleApplyFiltersModal
   }
 }
