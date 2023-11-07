@@ -3,7 +3,11 @@ import { Dropdown } from 'view/components';
 
 import { ExpensesIcon, IncomeIcon, TransactionsIcon } from 'view/icons';
 
-export function TransactionTypeDropdown() {
+type TransactionTypeDropdownProps = {
+  onSelect: (type: 'INCOME' | 'EXPENSE' | undefined) => void;
+}
+
+export function TransactionTypeDropdown({ onSelect }: TransactionTypeDropdownProps) {
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
@@ -17,17 +21,17 @@ export function TransactionTypeDropdown() {
       </Dropdown.Trigger>
 
       <Dropdown.Content className="w-[14.5rem] z-50 mt-2" side="bottom">
-        <Dropdown.Item className="gap-2">
+        <Dropdown.Item className="gap-2" onSelect={() => onSelect('INCOME')}>
           <IncomeIcon />
           Income
         </Dropdown.Item>
 
-        <Dropdown.Item className="gap-2">
+        <Dropdown.Item className="gap-2" onSelect={() => onSelect('EXPENSE')}>
           <ExpensesIcon />
           Expense
         </Dropdown.Item>
 
-        <Dropdown.Item className="gap-2">
+        <Dropdown.Item className="gap-2" onSelect={() => onSelect(undefined)}>
           <TransactionsIcon />
           Transactions
         </Dropdown.Item>

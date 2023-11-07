@@ -21,6 +21,6 @@ export type GetTransactionsParams = {
     month: number;
     year: number;
     bankAccountId?: string;
-    type?: TransactionType;
+    transactionType?: TransactionType;
   }
 }

@@ -19,6 +19,7 @@ export function useDashboardTransactions() {
   const { transactions, isLoading, isInitialLoading, refetch } = useTransactions({ filters })
 
   useEffect(() => {
+    console.log({ filters })
     refetch()
   }, [filters, refetch])
 
