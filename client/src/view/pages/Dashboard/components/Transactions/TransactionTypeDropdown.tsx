@@ -5,16 +5,22 @@ import { ExpensesIcon, IncomeIcon, TransactionsIcon } from 'view/icons';
 
 type TransactionTypeDropdownProps = {
   onSelect: (type: 'INCOME' | 'EXPENSE' | undefined) => void;
+  selectedType: 'INCOME' | 'EXPENSE' | undefined
 }
 
-export function TransactionTypeDropdown({ onSelect }: TransactionTypeDropdownProps) {
+export function TransactionTypeDropdown({ onSelect, selectedType }: TransactionTypeDropdownProps) {
   return (
     <Dropdown.Root>
       <Dropdown.Trigger>
         <div className="flex items-center gap-2">
-          <TransactionsIcon />
+          {selectedType === 'EXPENSE' && <ExpensesIcon />}
+          {selectedType === 'INCOME' && <IncomeIcon />}
+          {selectedType === undefined && <TransactionsIcon />}
+
           <span className="text-sm text-gray-800 tracking-[-0.5px] font-medium">
-            Transactions
+            {selectedType === 'EXPENSE' && 'Expenses'}
+            {selectedType === 'INCOME' && 'Incomes'}
+            {selectedType === undefined && 'Transactions'}
           </span>
           <ChevronDownIcon className="text-gray-900" />
         </div>
@@ -23,12 +29,12 @@ export function TransactionTypeDropdown({ onSelect }: TransactionTypeDropdownPro
       <Dropdown.Content className="w-[14.5rem] z-50 mt-2" side="bottom">
         <Dropdown.Item className="gap-2" onSelect={() => onSelect('INCOME')}>
           <IncomeIcon />
-          Income
+          Incomes
         </Dropdown.Item>
 
         <Dropdown.Item className="gap-2" onSelect={() => onSelect('EXPENSE')}>
           <ExpensesIcon />
-          Expense
+          Expenses
         </Dropdown.Item>
 
         <Dropdown.Item className="gap-2" onSelect={() => onSelect(undefined)}>
