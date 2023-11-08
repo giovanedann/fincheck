@@ -1,3 +1,4 @@
+import { Transaction } from 'app/domain/entities/Transaction';
 import { GetTransactionsParams } from 'app/domain/services/TransactionService';
 import { useTransactions } from 'app/hooks/useTransactions';
 import { useCallback, useEffect, useState } from 'react';
@@ -5,6 +6,8 @@ import { useDashboard } from 'view/pages/Dashboard/hooks/useDashboard';
 
 export function useDashboardTransactions() {
   const [isFiltersModalOpen, setIsFiltersModalOpen] = useState<boolean>(false)
+  const [isEditTransactionModalOpen, setIsEditTransactionModalOpen] = useState<boolean>(false)
+  const [transactionBeingEdited, setTransactionBeingEdited] = useState<Transaction | null>(null)
   const [filters, setFilters] = useState<GetTransactionsParams['filters']>(() => {
     const today = new Date();
 
@@ -46,6 +49,16 @@ export function useDashboardTransactions() {
     setIsFiltersModalOpen(false)
   }, [])
 
+  const handleOpenEditTransactionModal = useCallback((transaction: Transaction) => {
+    setIsEditTransactionModalOpen(true)
+    setTransactionBeingEdited(transaction)
+  }, [])
+
+  const handleCloseEditTransactionModal = useCallback(() => {
+    setIsEditTransactionModalOpen(false)
+    setTransactionBeingEdited(null)
+  }, [])
+
   return {
     areValuesVisible,
     isInitialLoading,
@@ -53,9 +66,13 @@ export function useDashboardTransactions() {
     filters,
     transactions,
     isFiltersModalOpen,
+    isEditTransactionModalOpen,
+    transactionBeingEdited,
     handleOpenFiltersModal,
     handleCloseFiltersModal,
     handleChangeFilters,
-    handleApplyFiltersModal
+    handleApplyFiltersModal,
+    handleOpenEditTransactionModal,
+    handleCloseEditTransactionModal
   }
 }
