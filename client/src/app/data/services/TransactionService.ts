@@ -23,6 +23,12 @@ class TransactionService implements ITransactionService {
 
     return data;
   }
+
+  async delete(transationId: string) {
+    const { data } = await this.client.delete(`/transactions/${transationId}`);
+
+    return data;
+  }
 }
 
 export default new TransactionService()

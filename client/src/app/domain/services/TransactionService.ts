@@ -3,6 +3,7 @@ import { Transaction, TransactionType } from 'app/domain/entities/Transaction';
 export interface ITransactionService {
   create: (params: CreateTransactionParams) => Promise<void>
   update: (params: UpdateTransactionParams) => Promise<void>
+  delete: (transactionId: string) => Promise<void>
   get: (params: GetTransactionsParams) => Promise<GetTransactionsResponse>
 }
 
