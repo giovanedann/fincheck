@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -31,6 +31,8 @@ type UseEditTransactionModalParams = {
 }
 
 export function useEditTransactionModal({ transaction, onClose }: UseEditTransactionModalParams) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false)
+
   const {
     register,
     handleSubmit: hookFormSubmit,
@@ -47,9 +49,15 @@ export function useEditTransactionModal({ transaction, onClose }: UseEditTransac
     }
   })
 
-  const { isLoading, mutateAsync } = useMutation({
+  const updateMutation = useMutation({
     mutationFn: async (data: UpdateTransactionParams) => {
       return TransactionService.update(data)
+    }
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      return TransactionService.delete(transaction!.id)
     }
   })
 
@@ -70,7 +78,7 @@ export function useEditTransactionModal({ transaction, onClose }: UseEditTransac
     }
 
     try {
-      await mutateAsync({
+      await updateMutation.mutateAsync({
         id: transaction!.id,
         type: transaction!.type,
         ...convertedData
@@ -95,10 +103,37 @@ export function useEditTransactionModal({ transaction, onClose }: UseEditTransac
     }
   })
 
+  function handleOpenDeleteModal() {
+    setIsDeleteModalOpen(true)
+  }
+
+  function handleCloseDeleteModal() {
+    setIsDeleteModalOpen(false)
+  }
+
+  async function handleDeleteTransaction() {
+    try {
+      await deleteMutation.mutateAsync()
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.transactions] })
+      toast.success('Account deleted with success!')
+    } catch {
+      toast.error('Error deleting the account')
+    } finally {
+      handleCloseDeleteModal()
+      onClose()
+    }
+  }
+
   return {
     handleSubmit,
     register,
-    isLoading,
+    handleOpenDeleteModal,
+    handleCloseDeleteModal,
+    handleDeleteTransaction,
+    isDeleteModalOpen,
+    isLoading: updateMutation.isLoading,
+    isDeleting: deleteMutation.isLoading,
     accounts,
     categories: filteredCategories,
     errors,

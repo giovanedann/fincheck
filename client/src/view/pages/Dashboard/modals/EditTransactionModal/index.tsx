@@ -1,8 +1,9 @@
-import { Button, CurrencyInput, Input, Modal, Select } from 'view/components';
+import { Button, ConfirmDeleteModal, CurrencyInput, Input, Modal, Select } from 'view/components';
 import { DateInput } from 'view/components/DateInput';
 import { Controller } from 'react-hook-form';
 import { useEditTransactionModal } from './hooks/useEditTransactionModal';
 import { Transaction } from 'app/domain/entities/Transaction';
+import { TrashIcon } from '@radix-ui/react-icons';
 
 type EditTransactionModalProps = {
   transaction: Transaction | null
@@ -17,17 +18,37 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
     categories,
     accounts,
     isLoading,
+    isDeleteModalOpen,
+    handleDeleteTransaction,
+    isDeleting,
+    handleCloseDeleteModal,
+    handleOpenDeleteModal,
     handleSubmit,
     register
   } = useEditTransactionModal({ transaction, onClose })
 
   const isExpense = transaction?.type === 'EXPENSE';
 
+  if (isDeleteModalOpen) {
+    return (
+      <ConfirmDeleteModal
+        isLoading={isDeleting}
+        onClose={handleCloseDeleteModal}
+        onConfirm={handleDeleteTransaction}
+        title="Are you sure? This action cannot be undone!"
+        description="By excluding this transaction, you will need to create it again."
+      />
+    )
+  }
+
   return (
     <Modal
       title={isExpense ? 'Edit expense' : 'Edit income'}
       open={open}
       onClose={onClose}
+      rightAction={(
+        <TrashIcon className="w-6 h-6 text-red-900" onClick={handleOpenDeleteModal} />
+      )}
     >
       <form onSubmit={handleSubmit}>
         <div>
