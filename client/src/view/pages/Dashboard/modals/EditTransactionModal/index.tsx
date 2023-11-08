@@ -19,7 +19,7 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
     isLoading,
     handleSubmit,
     register
-  } = useEditTransactionModal({ transaction })
+  } = useEditTransactionModal({ transaction, onClose })
 
   const isExpense = transaction?.type === 'EXPENSE';
 
