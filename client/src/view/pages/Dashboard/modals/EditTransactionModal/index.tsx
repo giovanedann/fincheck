@@ -36,7 +36,6 @@ export function EditTransactionModal({ transaction, onClose, open }: EditTransac
         onClose={handleCloseDeleteModal}
         onConfirm={handleDeleteTransaction}
         title="Are you sure? This action cannot be undone!"
-        description="By excluding this transaction, you will need to create it again."
       />
     )
   }

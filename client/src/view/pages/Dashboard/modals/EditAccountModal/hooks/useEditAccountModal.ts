@@ -102,9 +102,9 @@ export function useEditAccountModal() {
     try {
       await deleteMutation.mutateAsync({ id: accountBeingEdited!.id })
       queryClient.invalidateQueries({ queryKey: [QUERY_KEYS.bankAccounts] })
-      toast.success('Account deleted with success!')
+      toast.success('Transaction deleted with success!')
     } catch {
-      toast.error('Error deleting the account')
+      toast.error('Error deleting the transaction')
     } finally {
       handleCloseDeleteModal()
       closeEditAccountModal()
