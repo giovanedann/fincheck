@@ -6,6 +6,7 @@ export type Transaction = {
   value: number
   date: string
   type: TransactionType
+  bankAccountId: string;
   category?: {
     id: string
     name: string
